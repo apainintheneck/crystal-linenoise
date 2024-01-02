@@ -60,9 +60,9 @@ lib LibLinenoise
   fun linenoiseHistoryLoad(filename : Char*) : Int
 
   # Other utilities.
-  fun linenoiseClearScreen();
-  fun linenoiseSetMultiLine(ml : Int);
-  fun linenoisePrintKeyCodes();
-  fun linenoiseMaskModeEnable();
-  fun linenoiseMaskModeDisable();
+  fun linenoiseClearScreen
+  fun linenoiseSetMultiLine(ml : Int)
+  fun linenoisePrintKeyCodes
+  fun linenoiseMaskModeEnable
+  fun linenoiseMaskModeDisable
 end

@@ -1,10 +1,10 @@
-.PHONY: liblinenoise clean
+.PHONY: extension clean
 
-CFLAGS = -Wall -W -c -std=c11 -O2
+CFLAGS = -Wall -W -c -O2
 
-default: liblinenoise
+default: extension
 
-liblinenoise: src/linenoise.o
+extension: src/linenoise.o
 
 src/linenoise.o: ext/linenoise.c
 	$(CC) -o $@ $< $(CFLAGS)
