@@ -8,10 +8,10 @@ lib LibLinenoise
 
   $linenoiseEditMore : Char*
 
-  # The linenoiseState structure represents the state during line editing.
+  # The State structure represents the state during line editing.
   # We pass this state to functions implementing specific editing
   # functionalities.
-  struct LinenoiseState
+  struct State
     in_completion : Int
     completion_idx : SizeT
     ifd : Int
@@ -28,41 +28,43 @@ lib LibLinenoise
     history_index : Int
   end
 
-  struct LinenoiseCompletions
+  struct Completions
     len : SizeT
     cvec : Char**
   end
 
   # Non blocking API.
-  fun linenoiseEditStart(l : LinenoiseState*, stdin_fd : Int, stdout_fd : Int, buf : Char*, buflen : SizeT, prompt : Char*) : Int
-  fun linenoiseEditFeed(l : LinenoiseState*) : Char*
-  fun linenoiseEditStop(l : LinenoiseState*)
-  fun linenoiseHide(l : LinenoiseState*)
-  fun linenoiseShow(l : LinenoiseState*)
+  fun edit_start = linenoiseEditStart(state : State*, stdin_fd : Int, stdout_fd : Int, buf : Char*, buflen : SizeT, prompt : Char*) : Int
+  fun edit_feed = linenoiseEditFeed(state : State*) : Char*
+  fun edit_stop = linenoiseEditStop(state : State*)
+  fun hide = linenoiseHide(state : State*)
+  fun show = linenoiseShow(state : State*)
 
   # Blocking API.
-  fun linenoise(prompt : Char*) : Char*
-  fun linenoiseFree(ptr : Void*)
+  # Note: Max line size is set to 4096 characters.
+  fun prompt = linenoise(prompt : Char*) : Char*
+  fun free = linenoiseFree(ptr : Void*)
 
   # Completion API.
-  alias LinenoiseCompletionCallback = (Char*, LinenoiseCompletions*) -> Void
-  alias LinenoiseHintsCallback = (Char*, Int*, Int*) -> Void
-  alias LinenoiseFreeHintsCallback = (Void*) -> Void
-  fun linenoiseSetCompletionCallback(callback : LinenoiseCompletionCallback*)
-  fun linenoiseSetHintsCallback(callback : LinenoiseHintsCallback*)
-  fun linenoiseSetFreeHintsCallback(callback : LinenoiseFreeHintsCallback*)
-  fun linenoiseAddCompletion(completions_state : LinenoiseCompletions*, completion : Char*)
+  alias CompletionCallback = (Char*, Completions*) -> Void
+  alias HintsCallback = (Char*, Int*, Int*) -> Void
+  alias FreeHintsCallback = (Void*) -> Void
+  fun set_completion_callback = linenoiseSetCompletionCallback(callback : CompletionCallback*)
+  fun set_hints_callback = linenoiseSetHintsCallback(callback : HintsCallback*) : Char*
+  fun set_free_hints_callback = linenoiseSetFreeHintsCallback(callback : FreeHintsCallback*)
+  fun add_completion = linenoiseAddCompletion(completions_state : Completions*, completion : Char*)
 
   # History API.
-  fun linenoiseHistoryAdd(line : Char*) : Int
-  fun linenoiseHistorySetMaxLen(len : Int) : Int
-  fun linenoiseHistorySave(filename : Char*) : Int
-  fun linenoiseHistoryLoad(filename : Char*) : Int
+  fun history_add = linenoiseHistoryAdd(line : Char*) : Int
+  # Note: The default max history length is 100 lines.
+  fun history_set_max_len = linenoiseHistorySetMaxLen(len : Int) : Int
+  fun history_save = linenoiseHistorySave(filename : Char*) : Int
+  fun history_load = linenoiseHistoryLoad(filename : Char*) : Int
 
   # Other utilities.
-  fun linenoiseClearScreen
-  fun linenoiseSetMultiLine(ml : Int)
-  fun linenoisePrintKeyCodes
-  fun linenoiseMaskModeEnable
-  fun linenoiseMaskModeDisable
+  fun clear_screen = linenoiseClearScreen
+  fun set_multiline = linenoiseSetMultiLine(ml : Int)
+  fun print_key_codes = linenoisePrintKeyCodes
+  fun mask_mode_enable = linenoiseMaskModeEnable
+  fun mask_mode_disable = linenoiseMaskModeDisable
 end
