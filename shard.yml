@@ -1,0 +1,9 @@
+name: linenoise
+version: 0.1.0
+
+authors:
+  - Kevin Robell <apainintheneck@gmail.com>
+
+crystal: '>= 1.10.1'
+
+license: MIT
