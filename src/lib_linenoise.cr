@@ -1,7 +1,6 @@
 # Note: This is a one-for-one translation of `ext/linenoise.h`.
 @[Link(ldflags: "#{__DIR__}/linenoise.o")]
 lib LibLinenoise
-  alias Void = LibC::Void
   alias Char = LibC::Char
   alias Int = LibC::Int
   alias SizeT = LibC::SizeT
@@ -47,10 +46,10 @@ lib LibLinenoise
 
   # Completion API.
   alias CompletionCallback = (Char*, Completions*) -> Void
-  alias HintsCallback = (Char*, Int*, Int*) -> Void
+  alias HintsCallback = (Char*, Int*, Int*) -> Char*
   alias FreeHintsCallback = (Void*) -> Void
   fun set_completion_callback = linenoiseSetCompletionCallback(callback : CompletionCallback*)
-  fun set_hints_callback = linenoiseSetHintsCallback(callback : HintsCallback*) : Char*
+  fun set_hints_callback = linenoiseSetHintsCallback(callback : HintsCallback*)
   fun set_free_hints_callback = linenoiseSetFreeHintsCallback(callback : FreeHintsCallback*)
   fun add_completion = linenoiseAddCompletion(completions_state : Completions*, completion : Char*)
 
