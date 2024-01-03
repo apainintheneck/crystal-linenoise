@@ -48,9 +48,9 @@ lib LibLinenoise
   alias CompletionCallback = (Char*, Completions*) -> Void
   alias HintsCallback = (Char*, Int*, Int*) -> Char*
   alias FreeHintsCallback = (Void*) -> Void
-  fun set_completion_callback = linenoiseSetCompletionCallback(callback : CompletionCallback*)
-  fun set_hints_callback = linenoiseSetHintsCallback(callback : HintsCallback*)
-  fun set_free_hints_callback = linenoiseSetFreeHintsCallback(callback : FreeHintsCallback*)
+  fun set_completion_callback = linenoiseSetCompletionCallback(callback : CompletionCallback)
+  fun set_hints_callback = linenoiseSetHintsCallback(callback : HintsCallback)
+  fun set_free_hints_callback = linenoiseSetFreeHintsCallback(callback : FreeHintsCallback)
   fun add_completion = linenoiseAddCompletion(completions_state : Completions*, completion : Char*)
 
   # History API.

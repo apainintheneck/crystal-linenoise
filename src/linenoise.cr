@@ -5,53 +5,23 @@ require "./lib_linenoise"
 module Linenoise
   VERSION = "0.1.0"
 
-  def self.reset
-    @@state = nil
-    @@completions.try &.clear
-    @@hints.try &.clear
-  end
-
   # Blocking API.
 
-  def self.prompt(prompt : String) : String
-    String.new(LibLinenoise.prompt(prompt))
+  def self.prompt(prompt : String) : String | Nil
+    line = LibLinenoise.prompt(prompt)
+    return if line.null?
+
+    String.new(line)
   end
 
-  # Non blocking API.
+  def self.each_prompt(prompt : String, save_history = false)
+    loop do
+      line = self.prompt(prompt)
+      return if line.nil?
 
-  private def self.state : LibLinenoise::State
-    @@state ||= LibLinenoise::State.new
-  end
-
-  private def self.buffer : UInt8*
-    @@buffer ||= uninitialized UInt8[1024]
-  end
-
-  def self.start_edit(prompt : String) : Int
-    LibLinenoise.edit_start(
-      state: pointerof(state),
-      stdin_fd: -1,
-      stdout_fd: -1,
-      buf: pointerof(buffer),
-      buflen: buffer.size,
-      prompt: prompt
-    )
-  end
-
-  def self.feed_edit
-    String.new(LibLinenoise.edit_feed(pointerof(state)))
-  end
-
-  def self.stop_edit
-    LibLinenoise.edit_stop(pointerof(state))
-  end
-
-  def self.hide
-    LibLinenoise.hide(pointerof(state))
-  end
-
-  def self.show
-    LibLinenoise.show(pointerof(state))
+      self.save_history(line) if save_history && !line.blank?
+      yield line
+    end
   end
 
   # Completion API.
@@ -60,30 +30,40 @@ module Linenoise
     @@completions ||= Array(String).new
   end
 
-  def self.add_completions(completions : Array(String))
+  private def self.show_completion_hints? : Bool | Nil
+    @@show_completion_hints
+  end
+
+  private def self.each_completion(line : String, &)
+    return if line.empty?
+
+    index = self.completions.bsearch_index { |string| string >= line }
+    return if index.nil?
+
+    while index < self.completions.size
+      break unless self.completions[index].starts_with?(line)
+
+      yield self.completions[index]
+      index += 1
+    end
+  end
+
+  def self.add_completions(completions : Array(String), with_hints = false)
     return if completions.empty?
 
     @@completions = completions.sort
 
-    callback = ->(raw_line : Pointer(UInt8), completion_state : Pointer(LibLinenoise::Completions)) do
-      each_completion(String.new(raw_line)) do |completion|
+    LibLinenoise.set_completion_callback ->(raw_line : Pointer(UInt8), completion_state : Pointer(LibLinenoise::Completions)) do
+      self.each_completion(String.new(raw_line)) do |completion|
         LibLinenoise.add_completion(completion_state, completion)
       end
     end
 
-    LibLinenoise.set_completion_callback(pointerof(callback))
+    add_hints if @@show_completion_hints = with_hints
   end
 
-  private def self.each_completion(line : String, &)
-    index = completions.bsearch_index { |string| string >= line }
-    return if index.nil?
-
-    while index < completions.size
-      break unless completions[index].starts_with?(line)
-
-      yield completions[index]
-      index += 1
-    end
+  def self.set_completion_callback(callback : Proc(Pointer(UInt8), Pointer(LibLinenoise::Completions), Nil))
+    LibLinenoise.set_completion_callback(callback)
   end
 
   # History API.
@@ -93,7 +73,7 @@ module Linenoise
     getter color : Colorize::ColorANSI
     getter bold : Bool
 
-    def initialize(@text, @color = Colorize::ColorANSI::LightGray, @bold = false)
+    def initialize(@text, @color = Colorize::ColorANSI::DarkGray, @bold = false)
     end
   end
 
@@ -101,33 +81,41 @@ module Linenoise
     @@hints ||= Hash(String, Hint).new
   end
 
-  def self.add_hints(hints : Hash(String, Hint))
-    return if hints.empty?
+  def self.add_hints(hints = Hash(String, Hint).new)
+    return if hints.empty? && !show_completion_hints?
 
     @@hints = hints
 
-    hints_callback = ->(line : Pointer(UInt8), color : Pointer(Int32), bold : Pointer(Int32)) : Pointer(UInt8) do
-      hint = self.hints[String.new(line)]?
+    LibLinenoise.set_hints_callback ->(raw_line : Pointer(UInt8), color : Pointer(Int32), bold : Pointer(Int32)) : Pointer(UInt8) do
+      line = String.new(raw_line)
+
+      if show_completion_hints?
+        self.each_completion(line) do |hint|
+          next if hint == line
+
+          color.value = Colorize::ColorANSI::Cyan.to_i
+          bold.value = 0
+          return hint.byte_slice(start: line.size).to_unsafe
+        end
+      end
+
+      hint = self.hints[line]?
       return Pointer(UInt8).null if hint.nil?
 
       color.value = hint.color.to_i
       bold.value = hint.bold ? 1 : 0
       return hint.text.to_unsafe
     end
+  end
 
-    LibLinenoise.set_hints_callback(pointerof(hints_callback))
-
-    free_hints_callback = ->(hint : Pointer(Void)) do
-      LibLinenoise.free(hint)
-    end
-
-    LibLinenoise.set_free_hints_callback(pointerof(free_hints_callback))
+  def self.set_hints_callback(callback : Proc(Pointer(UInt8), Pointer(Int32), Pointer(Int32), Pointer(UInt8)))
+    LibLinenoise.set_hints_callback(callback)
   end
 
   # History API.
 
   def self.add_history(line : String) : Bool
-    LibLinenoise.history_add(Line) != 0
+    LibLinenoise.history_add(line) != 0
   end
 
   def self.max_history(length : Int) : Bool
@@ -160,9 +148,9 @@ module Linenoise
 
   def self.set_mask_mode(mask_mode : Bool)
     if mask_mode
-      LibLinenoise.linenoiseMaskModeEnable
+      LibLinenoise.mask_mode_enable
     else
-      LibLinenoise.linenoiseMaskModeDisable
+      LibLinenoise.mask_mode_disable
     end
   end
 end
