@@ -23,7 +23,7 @@ end
 HISTORY_FILE = "#{__DIR__}/example_history.txt"
 
 Linenoise.add_completions(["hello", "hello there"], with_hints: true)
-Linenoise.add_hints({ "hello there" => Linenoise::Hint.new(text: " cruel world!", color: Colorize::ColorANSI::Red)})
+# Linenoise.add_hints({ "hello there" => Linenoise::Hint.new(text: " cruel world!", color: Colorize::ColorANSI::Red)})
 Linenoise.load_history(HISTORY_FILE)
 
 loop do

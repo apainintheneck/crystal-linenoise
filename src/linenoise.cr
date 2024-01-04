@@ -14,24 +14,10 @@ module Linenoise
     String.new(line)
   end
 
-  def self.each_prompt(prompt : String, save_history = false)
-    loop do
-      line = self.prompt(prompt)
-      return if line.nil?
-
-      self.save_history(line) if save_history && !line.blank?
-      yield line
-    end
-  end
-
   # Completion API.
 
   private def self.completions : Array(String)
     @@completions ||= Array(String).new
-  end
-
-  private def self.show_completion_hints? : Bool | Nil
-    @@show_completion_hints
   end
 
   private def self.each_completion(line : String, &)
@@ -59,7 +45,21 @@ module Linenoise
       end
     end
 
-    add_hints if @@show_completion_hints = with_hints
+    return unless with_hints
+
+    LibLinenoise.set_hints_callback ->(raw_line : Pointer(UInt8), color : Pointer(Int32), bold : Pointer(Int32)) : Pointer(UInt8) do
+      line = String.new(raw_line)
+
+      self.each_completion(line) do |hint|
+        next if hint == line
+
+        color.value = Colorize::ColorANSI::DarkGray.to_i
+        bold.value = 0
+        return hint.byte_slice(start: line.size).to_unsafe
+      end
+
+      return Pointer(UInt8).null
+    end
   end
 
   def self.set_completion_callback(callback : Proc(Pointer(UInt8), Pointer(LibLinenoise::Completions), Nil))
@@ -82,23 +82,12 @@ module Linenoise
   end
 
   def self.add_hints(hints = Hash(String, Hint).new)
-    return if hints.empty? && !show_completion_hints?
+    return if hints.empty?
 
     @@hints = hints
 
     LibLinenoise.set_hints_callback ->(raw_line : Pointer(UInt8), color : Pointer(Int32), bold : Pointer(Int32)) : Pointer(UInt8) do
       line = String.new(raw_line)
-
-      if show_completion_hints?
-        self.each_completion(line) do |hint|
-          next if hint == line
-
-          color.value = Colorize::ColorANSI::Cyan.to_i
-          bold.value = 0
-          return hint.byte_slice(start: line.size).to_unsafe
-        end
-      end
-
       hint = self.hints[line]?
       return Pointer(UInt8).null if hint.nil?
 
