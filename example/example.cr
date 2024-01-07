@@ -83,13 +83,13 @@ module TestCompletions
 
     @@completions = completions.sort
 
-    LibLinenoise.set_completion_callback ->(raw_line : Pointer(UInt8), completion_state : Pointer(LibLinenoise::Completions)) do
+    Linenoise.set_completion_callback ->(raw_line : Pointer(UInt8), completion_state : Pointer(LibLinenoise::Completions)) do
       self.each_completion(String.new(raw_line)) do |completion|
-        LibLinenoise.add_completion(completion_state, completion)
+        Linenoise.add_completion(completion_state, completion)
       end
     end
 
-    LibLinenoise.set_hints_callback ->(raw_line : Pointer(UInt8), color : Pointer(Int32), bold : Pointer(Int32)) : Pointer(UInt8) do
+    Linenoise.set_hints_callback ->(raw_line : Pointer(UInt8), color : Pointer(Int32), bold : Pointer(Int32)) : Pointer(UInt8) do
       line = String.new(raw_line)
 
       self.each_completion(line) do |hint|
