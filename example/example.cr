@@ -1,15 +1,16 @@
+# A test example loosely based on the test program in the linenoise repo.
 require "option_parser"
 
 require "../src/linenoise"
 
 HELP_TEXT = <<-HELP
 [Program]
-  This is only used as an example and to manually test if
+  This is used as an example and to manually test if
   the line editor is working as expected.
 
   The following four words are added as default completion hints.
   - "buenas"
-  - "buenos días"
+  - "buenas noches"
   - "hello"
   - "hello there"
 
@@ -28,23 +29,6 @@ HELP_TEXT = <<-HELP
   :exit                -- Exit the program.
   :quit                -- Quit the program.
 HELP
-
-async = false
-
-OptionParser.parse do |parser|
-  parser.banner = "Usage: crystal run example/example.cr"
-  parser.on("-h", "--help", "Show this help") do
-    puts parser
-    puts
-    puts HELP_TEXT
-    exit
-  end
-  parser.invalid_option do |flag|
-    STDERR.puts "ERROR: #{flag} is not a valid option."
-    STDERR.puts parser
-    exit(1)
-  end
-end
 
 HISTORY_FILE = "#{__DIR__}/example_history.txt"
 
@@ -94,7 +78,7 @@ module TestCompletions
     end
   end
 
-  def self.add_completions(completions : Array(String), with_hints = false)
+  def self.add_completions(completions : Array(String))
     return if completions.empty?
 
     @@completions = completions.sort
@@ -121,8 +105,10 @@ module TestCompletions
   end
 end
 
-TestCompletions.add_completions(["buenas", "buenos días", "hello", "hello there"], with_hints: true)
+TestCompletions.add_completions(["buenas", "buenas noches", "hello", "hello there"])
 Linenoise.load_history(HISTORY_FILE)
+
+puts HELP_TEXT
 
 loop do
   line = Linenoise.prompt("hello> ")
