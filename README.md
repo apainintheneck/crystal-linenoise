@@ -1,6 +1,6 @@
 # linenoise
 
-TODO: Write a description here
+WIP: Bindings for Crystal to the lightwieght Linenoise line editor library.
 
 ## Installation
 
@@ -36,4 +36,4 @@ TODO: Write development instructions here
 
 ## Contributors
 
-- [apainintheneck](https://github.com/your-github-user) - creator and maintainer
+- [apainintheneck](https://github.com/apainintheneck) - creator and maintainer
