@@ -1,5 +1,7 @@
 ## Linenoise Extension Info
 
+All credit goes to antirez as mentioned in the license includes in this directory.
+
 - Last Copied
   - 2023-12-31
 - Last Commit
