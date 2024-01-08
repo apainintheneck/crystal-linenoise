@@ -4,6 +4,9 @@ version: 0.1.0
 authors:
   - Kevin Robell <apainintheneck@gmail.com>
 
+scripts:
+  postinstall: "make extension"
+
 crystal: '>= 1.10.1'
 
 license: MIT
