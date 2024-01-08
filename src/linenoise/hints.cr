@@ -6,9 +6,15 @@ module Linenoise
   module Hints
     # Representation of the data passed to linenoise in the `#hints_callback`.
     struct Hint
+      # The text the line must match to trigger the hint.
       getter text : String
+
+      # The ANSI color code of the hint.
       getter color : Colorize::ColorANSI
-      getter attribute : Int32 # ANSI Select Graphic Rendition (SGR)
+
+      # ANSI Select Graphic Rendition (SGR) attribute of the hint.
+      # Note: The majority of these are not portable but 1 does indicate bold text.
+      getter attribute : Int32
 
       def initialize(@text, @color = Colorize::ColorANSI::DarkGray, @attribute = 0)
       end

@@ -108,7 +108,7 @@ module Linenoise
       @@enable_hints = true
     end
 
-    # Resets the completion and hints callbacks
+    # Reset the completion and hints callbacks along the completions array.
     def self.reset
       if @@set_callback
         Linenoise.set_completion_callback Null

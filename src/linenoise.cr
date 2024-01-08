@@ -24,11 +24,11 @@ module Linenoise
   #
 
   # Callback for setting completions based on user input.
-  alias CompletionCallback = Proc(
-    Pointer(UInt8),                     # In:  The current line as a cstring.
-    Pointer(LibLinenoise::Completions), # In:  The completion state to be passed to `#add_completion`.
-    Nil                                 # Out: No return value.
-  )
+  #
+  # - In:  `Pointer(UInt8)`                     The current line as a cstring.
+  # - In:  `Pointer(LibLinenoise::Completions)` The completion state to be passed to `#add_completion`.
+  # - Out: `Nil`                                No return value.
+  alias CompletionCallback = Proc(Pointer(UInt8), Pointer(LibLinenoise::Completions), Nil)
 
   # Note: The completion callback cannot be a closure since it will end up
   #       being passed to the C library internally and that is a compiler error.
@@ -50,12 +50,12 @@ module Linenoise
   #
 
   # Callback for registering hints based on user input.
-  alias HintsCallback = Proc(
-    Pointer(UInt8), # In:    The current line as a cstring.
-    Pointer(Int32), # Inout: The ANSI color code as an integer pointer.
-    Pointer(Int32), # Inout: The ANSI Select Graphic Rendition (SGR) code as an integer pointer.
-    Pointer(UInt8)  # Out:   Return the hint as a cstring (String#to_unsafe).
-  )
+  #
+  # - In:    `Pointer(UInt8)` The current line as a cstring.
+  # - Inout: `Pointer(Int32)` The ANSI color code as an integer pointer.
+  # - Inout: `Pointer(Int32)` The ANSI Select Graphic Rendition (SGR) code as an integer pointer.
+  # - Out:   `Pointer(UInt8)` Return the hint as a cstring (`String#to_unsafe`).
+  alias HintsCallback = Proc(Pointer(UInt8), Pointer(Int32), Pointer(Int32), Pointer(UInt8))
 
   # Note: The hints callback cannot be a closure since it will end up
   #       being passed to the C library internally and that is a compiler error.
