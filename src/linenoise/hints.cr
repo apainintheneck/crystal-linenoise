@@ -1,7 +1,10 @@
 require "colorize"
 
 module Linenoise
+  # A high-level wrapper around the linenoise hints API
+  # that makes it easier to add hints to your program.
   module Hints
+    # Representation of the data passed to linenoise in the `#hints_callback`.
     struct Hint
       getter text : String
       getter color : Colorize::ColorANSI
@@ -11,10 +14,12 @@ module Linenoise
       end
     end
 
+    # Memoized collection of hints so that they can be accessed from the callback.
     private def self.hints
       @@hints ||= Hash(String, Hint).new
     end
 
+    # Sets the callback once using memoization to check if it's already set.
     private def self.set_callback
       return if @@set_callback
 
@@ -31,6 +36,14 @@ module Linenoise
       @@set_callback = true
     end
 
+    # Add a new hint. The line is the string that triggers the hint to be shown.
+    def self.add(line : String, hint : Hint)
+      self.hints[line] = hint
+      self.set_callback
+    end
+
+    # Add new batch of hints.
+    # Takes a hash of lines to match and the hints that go with them.
     def self.add(hints = Hash(String, Hint).new)
       return if hints.empty?
 
@@ -38,21 +51,15 @@ module Linenoise
       self.set_callback
     end
 
-    def self.add(name : String, hint : Hint)
-      self.hints[name] = hint
-      self.set_callback
-    end
-
-    def self.remove(name : String) : Hint
+    # Remove a hint.
+    def self.remove(name : String)
       self.hints.delete(name)
     end
 
+    # Reset the hints callback and hints collections.
     def self.reset
       if @@set_callback
-        # Set empty callback to avoid unnecessary work if one was already set before.
-        Linenoise.set_hints_callback ->(raw_line : Pointer(UInt8), color : Pointer(Int32), bold : Pointer(Int32)) : Pointer(UInt8) do
-          return Pointer(UInt8).null
-        end
+        Linenoise.set_hints_callback Null
         @@set_callback = false
       end
 
