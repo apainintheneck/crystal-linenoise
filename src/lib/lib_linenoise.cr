@@ -1,4 +1,4 @@
-# C bindings for the Linenoise library.
+# Crystal bindings for the Linenoise library.
 # Note: This is a one-for-one translation of `ext/linenoise.h`.
 @[Link(ldflags: "#{__DIR__}/linenoise.o")]
 lib LibLinenoise

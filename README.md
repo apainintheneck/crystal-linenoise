@@ -2,7 +2,7 @@
 
 Note: This is still a work in progress.
 
-C bindings for Crystal to the lightwieght [Linenoise](https://github.com/antirez/linenoise) line editor library. It is a minimal alternative to readline and libedit.
+Crystal bindings for the lightweight [Linenoise](https://github.com/antirez/linenoise) line editor library written in C. It is a minimal alternative to readline and libedit.
 
 Linenoise is written in C code that supports most distributions of the Linux, macOS and BSD operating systems. We compile the library on install so linking should not be a problem and the library is lightwieght (less than 900 lines of code) so the resulting binary should be small.
 
