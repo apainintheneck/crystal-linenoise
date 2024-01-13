@@ -1,6 +1,6 @@
 .PHONY: example extension clean
 
-CFLAGS = -Wall -W -c -O2
+CFLAGS = -Wall -W -c -std=c11 -O2
 
 default: extension
 
