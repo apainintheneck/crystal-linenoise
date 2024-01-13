@@ -37,7 +37,7 @@ module TestCompletions
     @@completions ||= Array(String).new
   end
 
-  private def self.find_index(line : String) Int32 | Nil
+  private def self.find_index(line : String) : Int32?
     self.completions.bsearch_index { |string| string >= line }
   end
 

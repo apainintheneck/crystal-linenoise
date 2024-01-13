@@ -9,7 +9,7 @@ module Linenoise
     end
 
     # Find the index of the closest match to the given line.
-    private def self.find_index(line : String) Int32 | Nil
+    private def self.find_index(line : String) : Int32?
       self.completions.bsearch_index { |string| string >= line }
     end
 

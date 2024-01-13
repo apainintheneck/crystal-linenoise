@@ -60,6 +60,7 @@ lib LibLinenoise
     len : SizeT
     cvec : Char**
   end
+
   # Receives the current line and the completions state. A new completion can be added
   # to the completions state with the `#add_completion` method.
   alias CompletionCallback = (Char*, Completions*) -> Void

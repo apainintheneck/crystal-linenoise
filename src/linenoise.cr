@@ -10,7 +10,7 @@ module Linenoise
   #
 
   # Prompts the user for a new line of input.
-  def self.prompt(prompt : String) : String | Nil
+  def self.prompt(prompt : String) : String?
     line = LibLinenoise.prompt(prompt)
     return if line.null?
 
