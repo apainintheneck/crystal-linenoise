@@ -22,7 +22,26 @@ Linenoise is written in C code that supports most distributions of the Linux, ma
 
 ```crystal
 require "linenoise"
+
+COMPLETIONS = [
+  ...
+]
+
+# Enable tab completions.
+Linenoise::Completion.add(COMPLETIONS)
+
+# Enable completion hints to the right of the cursor.
+Linenoise::Completion.enabe_hints!
+
+# A simple REPL.
+loop do
+  line = Linenoise.prompt("> ")
+
+  # Process line here.
+end
 ```
+
+For more information look at the code comments and the `example/example.cr` file.
 
 ## Development
 
