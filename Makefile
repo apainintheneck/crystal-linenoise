@@ -12,6 +12,9 @@ extension: src/lib/linenoise.o
 src/lib/linenoise.o: ext/linenoise.c ext/linenoise.h
 	$(CC) -o $@ $< $(CFLAGS)
 
+check: extension
+	crystal build --no-codegen -o example_program example/example.cr
+
 lint:
 	crystal tool format --check
 

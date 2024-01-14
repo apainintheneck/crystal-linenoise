@@ -27,8 +27,11 @@ jobs:
       - name: Install dependencies
         run: shards install
 
-      - name: Build extension
-        run: make extension
-
       - name: Run linter
         run: make lint
+
+      - name: Build extension
+        run: make extension
+      
+      - name: Build example
+        run: make check
