@@ -12,6 +12,9 @@ lib LibLinenoise
   # Non blocking API.
   #
 
+  # Note: Since this isn't relevant for my personal use case,
+  # I have not provided a higher-level wrapper for the non-blocking API.
+
   # The line state used by the non-blocking multiplexing API.
   struct State
     in_completion : Int
@@ -30,8 +33,6 @@ lib LibLinenoise
     history_index : Int
   end
 
-  # Note: Since this is not portable (it relies on Linux) and isn't relevant for my personal use case,
-  #       I have not provided a higher-level wrapper for the non-blocking API.
   fun edit_start = linenoiseEditStart(
     state : State*, stdin_fd : Int, stdout_fd : Int,
     buf : Char*, buflen : SizeT, prompt : Char*
