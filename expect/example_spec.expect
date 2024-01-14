@@ -1,0 +1,66 @@
+proc timeout_error {} {
+  puts ""
+  puts "Error: timed out waiting for expected output"
+  exit 2
+}
+
+proc eof_error {} {
+  puts ""
+  puts "Error: unexpected end of file"
+  exit 3
+}
+
+set prompt "hello> "
+set newline "\r\n"
+set tab "\t"
+
+spawn crystal run example/example.cr
+
+#
+# Test tab completions
+#
+
+# Expect initial prompt to load.
+expect {
+  -regex "hello> $" {}
+  timeout timeout_error
+  eof eof_error
+}
+
+# Try one tab completion.
+send -- "h$tab$newline"
+
+# Expect one tab completion to change "h" to "hello".
+expect {
+  -exact "echo: hello$newline$prompt" {}
+  timeout timeout_error
+  eof eof_error
+}
+
+# Try two tab completions.
+send -- "h$tab$tab$newline"
+
+# Expect two tab completions to change "h" to "hello there".
+expect {
+  -exact "echo: hello there$newline$prompt" {}
+  timeout timeout_error
+  eof eof_error
+}
+
+# Try three tab completions.
+send -- "h$tab$tab$tab$newline"
+
+# Expect three tab completions to leave "h" unchanged since it
+# has cycled through two tab completions to the original input.
+expect {
+  -exact "echo: h$newline$prompt" {}
+  timeout timeout_error
+  eof eof_error
+}
+
+#
+# Exit the program
+#
+
+send -- ":exit\r\n"
+expect eof

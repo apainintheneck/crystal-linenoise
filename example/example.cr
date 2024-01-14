@@ -28,6 +28,7 @@ HELP_TEXT = <<-HELP
   :debug               -- Print key codes.
   :exit                -- Exit the program.
   :quit                -- Quit the program.
+>-------------------------------------------->
 HELP
 
 HISTORY_FILE = "#{__DIR__}/example_history.txt"

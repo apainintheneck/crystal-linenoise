@@ -47,11 +47,13 @@ For more information look at the code comments and the `example/example.cr` file
 
 Development setup is mostly managed by the Makefile.
 
-Interactive testing is available using the `example/example.cr` program which allows you to interactively check on different line editing features. It can be run with `make example`.
-
 Other than that there is the Linenoise extension in `ext/` that can be built with `make extension`. Keep in mind that this also gets installed automatically in a postinstall step when this shard is included as a dependency and `shard install` is run.
 
-The `crystal tool format` command is used for linting and `crystal docs` can be used to build the docs locally.
+Interactive testing is available using the `example/example.cr` program which allows you to check on different line editing features. It can be run with `make example`. The `make test` command runs tests on this example program using an `expect` script.
+
+The `make lint` command checks for linting errors and the `make fix` command fixes them automatically.
+
+The `crystal docs` command can be used to build the docs locally.
 
 ## Contributing
 

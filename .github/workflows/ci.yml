@@ -17,4 +17,6 @@ jobs:
     - name: Install dependencies
       run: shards install
     - name: Run linter
-      run: crystal tool format --check
+      run: make lint
+    - name: Run tests
+      run: make test
