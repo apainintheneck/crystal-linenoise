@@ -9,29 +9,28 @@ HELP_TEXT = <<-HELP
   the line editor is working as expected.
 
   The following four words are added as default completion hints.
-  - "buenas"
-  - "buenas noches"
-  - "hello"
-  - "hello there"
+  - ["buenas", "buenas noches", "hello", "hello there"]
+
+  A temporary history file is created with the following lines.
+  - ["first", "second", "third"]
 
 [REPL Commands]
-  :push <completion>   -- Add a new completion.
-  :pop <completion>    -- Remove a completion.
-  :show                -- Show the completions list.
-  :historylen <length> -- Change the history length.
-  :singleline          -- Enter single line editing mode.
-  :multiline           -- Enter multiline editing mode.
-  :mask                -- Enter masked editing mode.
-  :unmask              -- Exit masked editing mode.
-  :clear               -- Clear screen.
-  :help                -- Show this message.
-  :debug               -- Print key codes.
-  :exit                -- Exit the program.
-  :quit                -- Quit the program.
+  :push <completion>    -- Add a new completion.
+  :pop <completion>     -- Remove a completion.
+  :show                 -- Show the completions list.
+  :history_len <length> -- Change the history length.
+  :history_dump         -- Print the current history file.
+  :singleline           -- Enter single line editing mode.
+  :multiline            -- Enter multiline editing mode.
+  :mask                 -- Enter masked editing mode.
+  :unmask               -- Exit masked editing mode.
+  :clear                -- Clear screen.
+  :help                 -- Show this message.
+  :debug                -- Print key codes.
+  :exit                 -- Exit the program.
+  :quit                 -- Quit the program.
 >-------------------------------------------->
 HELP
-
-HISTORY_FILE = "#{__DIR__}/example_history.txt"
 
 module TestCompletions
   private def self.completions : Array(String)
@@ -107,66 +106,77 @@ module TestCompletions
 end
 
 TestCompletions.add_completions(["buenas", "buenas noches", "hello", "hello there"])
-Linenoise.load_history(HISTORY_FILE)
 
-puts HELP_TEXT
+File.tempfile(suffix: "example_history.txt") do |history_file|
+  # Add some data to the history file for testing.
+  %w[first second third].each { |string| history_file.puts string }
+  history_file.close
 
-loop do
-  line = Linenoise.prompt("hello> ")
-  break if line.nil?
+  Linenoise.load_history(history_file.path)
 
-  args = line.split
+  puts HELP_TEXT
 
-  case args.first?
-  when nil
-    next
-  when ":push"
-    completion = line.sub(/^\s*:push\s*/, "")
+  loop do
+    line = Linenoise.prompt("hello> ")
+    break if line.nil?
 
-    if completion.empty?
-      puts "Error: Missing completion"
+    args = line.split
+
+    case args.first?
+    when nil
+      next
+    when ":push"
+      completion = line.sub(/^\s*:push\s*/, "")
+
+      if completion.empty?
+        puts "Error: Missing completion"
+      else
+        TestCompletions.push_completion(completion)
+      end
+    when ":pop"
+      completion = line.sub(/^\s*:pop\s*/, "")
+
+      if completion.empty?
+        puts "Error: Missing completion"
+      else
+        TestCompletions.pop_completion(completion)
+      end
+    when ":show"
+      TestCompletions.pretty_print_completions
+    when ":history_len"
+      len = args[1]?.try &.to_i?
+
+      if len.nil? || len < 0
+        puts "Error: Invalid length: #{args[2]?}"
+      else
+        Linenoise.max_history(len)
+        Linenoise.load_history(history_file.path)
+      end
+    when ":history_dump"
+      puts File.read(history_file.path)
+    when ":singleline"
+      Linenoise.set_multiline(false)
+    when ":multiline"
+      Linenoise.set_multiline(true)
+    when ":mask"
+      Linenoise.set_mask_mode(true)
+    when ":unmask"
+      Linenoise.set_mask_mode(false)
+    when ":clear"
+      Linenoise.clear_screen
+    when ":help"
+      puts HELP_TEXT
+    when ":debug"
+      Linenoise.print_key_codes
+    when ":exit", ":quit"
+      puts "Have a nice day!"
+      break
     else
-      TestCompletions.push_completion(completion)
+      puts "echo: #{line}"
+      Linenoise.add_history(line)
+      Linenoise.save_history(history_file.path)
     end
-  when ":pop"
-    completion = line.sub(/^\s*:pop\s*/, "")
-
-    if completion.empty?
-      puts "Error: Missing completion"
-    else
-      TestCompletions.pop_completion(completion)
-    end
-  when ":show"
-    TestCompletions.pretty_print_completions
-  when ":historylen"
-    len = args[1]?.try &.to_i?
-
-    if len.nil? || len < 0
-      puts "Error: Invalid length: #{args[2]?}"
-    else
-      Linenoise.max_history(len)
-      Linenoise.load_history(HISTORY_FILE)
-    end
-  when ":singleline"
-    Linenoise.set_multiline(false)
-  when ":multiline"
-    Linenoise.set_multiline(true)
-  when ":mask"
-    Linenoise.set_mask_mode(true)
-  when ":unmask"
-    Linenoise.set_mask_mode(false)
-  when ":clear"
-    Linenoise.clear_screen
-  when ":help"
-    puts HELP_TEXT
-  when ":debug"
-    Linenoise.print_key_codes
-  when ":exit", ":quit"
-    puts "Have a nice day!"
-    break
-  else
-    puts "echo: #{line}"
-    Linenoise.add_history(line)
-    Linenoise.save_history(HISTORY_FILE)
   end
+ensure
+  history_file.delete
 end

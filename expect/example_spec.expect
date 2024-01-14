@@ -1,3 +1,10 @@
+# Integration tests for `example/example.cr` that test
+# functionality in the `Linenoise` module.
+
+#
+# Helpers
+#
+
 proc timeout_error {} {
   puts ""
   puts "Error: timed out waiting for expected output"
@@ -10,15 +17,21 @@ proc eof_error {} {
   exit 3
 }
 
+#
+# Variables
+#
+
 set prompt "hello> "
 set newline "\r\n"
 set tab "\t"
+set up "\033\[A"
+set down "\033\[B"
+
+#
+# Start example program
+#
 
 spawn crystal run example/example.cr
-
-#
-# Test tab completions
-#
 
 # Expect initial prompt to load.
 expect {
@@ -26,6 +39,46 @@ expect {
   timeout timeout_error
   eof eof_error
 }
+
+#
+# Test command history
+#
+
+# Get the second most recent command in the command history.
+send -- "original text$up$up$newline"
+
+# Expect the second most recent history command output.
+expect {
+  -exact "echo: second$newline$prompt" {}
+  timeout timeout_error
+  eof eof_error
+}
+
+# Move through the history and then back to the original text.
+send -- "original text$up$up$up$down$down$down$newline"
+
+# Expect the original text.
+expect {
+  -exact "echo: original text$newline$prompt" {}
+  timeout timeout_error
+  eof eof_error
+}
+
+# Dump the entire history file.
+send -- ":history_dump$newline"
+
+# Expect the history file to be updated with the last two values.
+set lines [list first second third second "original text" $prompt]
+set expected_output [join $lines $newline]
+expect {
+  -exact $expected_output {}
+  timeout timeout_error
+  eof eof_error
+}
+
+#
+# Test tab completions
+#
 
 # Try one tab completion.
 send -- "h$tab$newline"
