@@ -43,6 +43,14 @@ end
 
 For more information look at the code comments and the `example/example.cr` file.
 
+## Alternatives
+
+There are a few other line editing libraries available for Crystal.
+
+- [reply](https://github.com/I3oris/reply)
+- [fancyline](https://github.com/Papierkorb/fancyline)
+- [crystal-readline](https://github.com/crystal-lang/crystal-readline)
+
 ## Development
 
 Development setup is mostly managed by the Makefile.
