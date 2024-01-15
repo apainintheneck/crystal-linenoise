@@ -9,12 +9,29 @@ permissions:
 
 jobs:
   tests:
-    runs-on: ubuntu-latest
-    container:
-      image: crystallang/crystal
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+
     steps:
-    - uses: actions/checkout@v3
-    - name: Install dependencies
-      run: shards install
-    - name: Run linter
-      run: crystal tool format --check
+      - name: Install Crystal
+        uses: oprypin/install-crystal@v1
+        with:
+          crystal: latest
+
+      - name: Checkout branch
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: shards install
+
+      - name: Run linter
+        run: make lint
+
+      - name: Build extension
+        run: make extension
+      
+      - name: Build example
+        run: make check
