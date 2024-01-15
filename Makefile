@@ -22,7 +22,9 @@ fix:
 	crystal tool format
 
 test: extension
-	expect -f expect/example_spec.expect
+	expect -f expect/example.expect
+	@echo ":----------:"
+	expect -f expect/completion.expect
 
 clean:
 	rm -f src/lib/linenoise.o

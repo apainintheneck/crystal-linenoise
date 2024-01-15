@@ -1,0 +1,94 @@
+# Integration tests for `example/example.cr` that test
+# functionality in the `Linenoise` module.
+
+#
+# Helpers
+#
+
+proc timeout_error {} {
+  puts ""
+  puts "Error: timed out waiting for expected output"
+  exit 2
+}
+
+proc eof_error {} {
+  puts ""
+  puts "Error: unexpected end of file"
+  exit 3
+}
+
+#
+# Variables
+#
+
+set prompt "> "
+set newline "\r\n"
+set tab "\t"
+
+# Set the human typing speed.
+set send_human {.1 .3 1 .05 2}
+
+#
+# Start example program
+#
+
+spawn crystal run example/completion.cr
+
+# Expect initial prompt to load.
+expect {
+  -exact $prompt {}
+  timeout timeout_error
+  eof eof_error
+}
+
+#
+# Test tab completions
+#
+
+# Try one tab completion.
+send -h -- "h$tab$newline"
+
+# Expect one tab completion to change "h" to "hello".
+expect {
+  -exact "hello$newline$prompt" {}
+  timeout timeout_error
+  eof eof_error
+}
+
+# Try two tab completions.
+send -h -- "h$tab$tab$newline"
+
+# Expect two tab completions to change "h" to "hello there".
+expect {
+  -exact "hello there$newline$prompt" {}
+  timeout timeout_error
+  eof eof_error
+}
+
+# Try three tab completions.
+send -h -- "h$tab$tab$tab$newline"
+
+# Expect three tab completions to change "h" to "hello there everyone".
+expect {
+  -exact "hello there everyone$newline$prompt" {}
+  timeout timeout_error
+  eof eof_error
+}
+
+# Try four tab completions.
+send -h -- "h$tab$tab$tab$tab$newline"
+
+# Expect four tab completions to leave "h" unchanged since it
+# has cycled through three tab completions to the original input.
+expect {
+  -exact "h$newline$prompt" {}
+  timeout timeout_error
+  eof eof_error
+}
+
+#
+# Exit the program
+#
+
+send -h -- ":exit\r\n"
+expect eof

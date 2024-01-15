@@ -2,6 +2,8 @@ module Linenoise
   # A high-level wrapper around the linenoise completions API
   # that makes it easier to add completions to your program.
   module Completion
+    @@hint_color : Int32?
+
     # Memoized completions array that makes it easier to access
     # completions from the completions callback.
     private def self.completions : Array(String)
@@ -43,6 +45,8 @@ module Linenoise
     end
 
     # Add a new completion string.
+    #
+    # Note: This sets a completion callback internally.
     def self.add(completion : String)
       index = self.find_index(completion)
 
@@ -51,19 +55,21 @@ module Linenoise
       elsif self.completions[index] != completion
         self.completions.insert(index, completion)
       end
+
+      self.set_callback
     end
 
     # Add a batch of new completions.
+    #
+    # Note: This sets a completion callback internally.
     def self.add(completions : Array(String))
       return if completions.empty?
 
-      if self.completions.empty?
-        self.completions = completions.sort
-      else
-        self.completions.concat(completions)
-        self.completions.uniq!
-        self.completions.sort!
-      end
+      self.completions.concat(completions)
+      self.completions.uniq!
+      self.completions.sort!
+
+      self.set_callback
     end
 
     # Remove a completion.
@@ -77,7 +83,7 @@ module Linenoise
     end
 
     # Defaults to dark gray to differentiate it from normal text colors.
-    private def self.hint_color
+    private def self.hint_color : Int32
       @@hint_color ||= Colorize::ColorANSI::DarkGray.to_i
     end
 
@@ -86,7 +92,7 @@ module Linenoise
     # them from the characters that the user has already typed.
     #
     # Note: This sets a hints callback internally.
-    def self.enable_hints(color : Colorize::ColorANSI | Nil = nil)
+    def self.enable_hints!(color : Colorize::ColorANSI | Nil = nil)
       return if @@enable_hints
 
       @@hint_color = color.to_i unless color.nil?
@@ -106,21 +112,6 @@ module Linenoise
       end
 
       @@enable_hints = true
-    end
-
-    # Reset the completion and hints callbacks along the completions array.
-    def self.reset
-      if @@set_callback
-        Linenoise.set_completion_callback Null
-        @@set_callback = false
-      end
-
-      @@completions = nil
-
-      if @@enable_hints
-        Linenoise.set_hints_callback Null
-        @@enable_hints = false
-      end
     end
   end
 end

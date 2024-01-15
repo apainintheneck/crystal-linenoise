@@ -1,4 +1,7 @@
 # A test example loosely based on the test program in the linenoise repo.
+# It's purpose is to allow interactive testing of the `Linenoise` module
+# and is tested by the `example_spec.expect` script when `make test` is run.
+
 require "option_parser"
 
 require "../src/linenoise"
