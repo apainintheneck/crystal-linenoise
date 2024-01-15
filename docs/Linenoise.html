@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Crystal Docs 1.10.1">
+<meta name="crystal_docs.project_version" content="add-docs-website">
+<meta name="crystal_docs.project_name" content="linenoise">
+
+
+
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="js/doc.js"></script>
+
+  <meta name="repository-name" content="linenoise">
+  <title>Linenoise - linenoise add-docs-website</title>
+  <script type="text/javascript">
+    CrystalDocs.base_path = "";
+  </script>
+</head>
+<body>
+
+<svg class="hidden">
+  <symbol id="octicon-link" viewBox="0 0 16 16">
+    <path fill="currentColor" fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+  </symbol>
+</svg>
+<input type="checkbox" id="sidebar-btn">
+<label for="sidebar-btn" id="sidebar-btn-label">
+  <svg class="open" xmlns="http://www.w3.org/2000/svg" height="2em" width="2em" viewBox="0 0 512 512"><title>Open Sidebar</title><path fill="currentColor" d="M80 96v64h352V96H80zm0 112v64h352v-64H80zm0 112v64h352v-64H80z"></path></svg>
+  <svg class="close" xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 512 512"><title>Close Sidebar</title><path fill="currentColor" d="m118.6 73.4-45.2 45.2L210.7 256 73.4 393.4l45.2 45.2L256 301.3l137.4 137.3 45.2-45.2L301.3 256l137.3-137.4-45.2-45.2L256 210.7Z"></path></svg>
+</label>
+<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="search-box">
+      <input type="search" class="search-input" placeholder="Search..." spellcheck="false" aria-label="Search">
+    </div>
+
+    <div class="project-summary">
+      <h1 class="project-name">
+        <a href="index.html">
+          linenoise
+        </a>
+      </h1>
+
+      <span class="project-version">
+        add-docs-website
+      </span>
+    </div>
+  </div>
+
+  <div class="search-results hidden">
+    <ul class="search-list"></ul>
+  </div>
+
+  <div class="types-list">
+    <ul>
+  
+  <li class="parent open current" data-id="linenoise/Linenoise" data-name="linenoise">
+      <a href="Linenoise.html">Linenoise</a>
+      
+        <ul>
+  
+  <li class=" " data-id="linenoise/Linenoise/Completion" data-name="linenoise::completion">
+      <a href="Linenoise/Completion.html">Completion</a>
+      
+    </li>
+  
+  <li class=" " data-id="linenoise/Linenoise/CompletionCallback" data-name="linenoise::completioncallback">
+      <a href="Linenoise/CompletionCallback.html">CompletionCallback</a>
+      
+    </li>
+  
+  <li class=" " data-id="linenoise/Linenoise/HintsCallback" data-name="linenoise::hintscallback">
+      <a href="Linenoise/HintsCallback.html">HintsCallback</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+  </div>
+</div>
+
+
+<div class="main-content">
+<h1 class="type-name">
+
+  <span class="kind">module</span> Linenoise
+
+</h1>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2>
+    <a id="defined-in" class="anchor" href="#defined-in">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Defined in:
+  </h2>
+  
+    
+      <a href="https://github.com/apainintheneck/crystal-linenoise/blob/9f6e00df7204fa6abd523b0449f72c38a29db227/src/linenoise.cr#L4" target="_blank">
+        linenoise.cr
+      </a>
+    
+    <br/>
+  
+    
+      <a href="https://github.com/apainintheneck/crystal-linenoise/blob/9f6e00df7204fa6abd523b0449f72c38a29db227/src/linenoise/completions.cr#L3" target="_blank">
+        linenoise/completions.cr
+      </a>
+    
+    <br/>
+  
+
+
+
+  
+    <h2>
+      <a id="constant-summary" class="anchor" href="#constant-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+      Constant Summary
+    </h2>
+  
+  <dl>
+    
+      <dt class="entry-const" id="VERSION">
+        <strong>VERSION</strong> = <code><span class="s">&quot;0.1.0&quot;</span></code>
+      </dt>
+      
+    
+  </dl>
+
+
+
+
+
+  <h2>
+    <a id="class-method-summary" class="anchor" href="#class-method-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Class Method Summary
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#add_completion%28completion_state%3APointer%28LibLinenoise%3A%3ACompletions%29%2Ccompletion%3AString%29-class-method" class="signature"><strong>.add_completion</strong>(completion_state : Pointer(LibLinenoise::Completions), completion : String)</a>
+        
+          <div class="summary"><p>This method should only be called inside the completion callback to register valid completions.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#add_history%28line%3AString%29%3ABool-class-method" class="signature"><strong>.add_history</strong>(line : String) : Bool</a>
+        
+          <div class="summary"><p>Register the most recent line to the history.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#clear_screen-class-method" class="signature"><strong>.clear_screen</strong></a>
+        
+          <div class="summary"><p>Clears the entire screen and sets the cursor to the top left corner.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#load_history%28filename%3AString%29%3ABool-class-method" class="signature"><strong>.load_history</strong>(filename : String) : Bool</a>
+        
+          <div class="summary"><p>Load the history from a file.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#max_history%28length%3AInt%29%3ABool-class-method" class="signature"><strong>.max_history</strong>(length : Int) : Bool</a>
+        
+          <div class="summary"><p>Change the maximum number of lines in the history.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#print_key_codes-class-method" class="signature"><strong>.print_key_codes</strong></a>
+        
+          <div class="summary"><p>Only used for debugging.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#prompt%28prompt%3AString%29%3AString%7CNil-class-method" class="signature"><strong>.prompt</strong>(prompt : String) : String | Nil</a>
+        
+          <div class="summary"><p>Prompts the user for a new line of input.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#save_history%28filename%3AString%29%3ABool-class-method" class="signature"><strong>.save_history</strong>(filename : String) : Bool</a>
+        
+          <div class="summary"><p>Write the current history to a file.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#set_completion_callback%28callback%3ACompletionCallback%29-class-method" class="signature"><strong>.set_completion_callback</strong>(callback : CompletionCallback)</a>
+        
+          <div class="summary"><p>Note: The completion callback cannot be a closure since it will end up       being passed to the C library internally and that is a compiler error.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#set_hints_callback%28callback%3AHintsCallback%29-class-method" class="signature"><strong>.set_hints_callback</strong>(callback : HintsCallback)</a>
+        
+          <div class="summary"><p>Note: The hints callback cannot be a closure since it will end up       being passed to the C library internally and that is a compiler error.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#set_mask_mode%28mask_mode%3ABool%29-class-method" class="signature"><strong>.set_mask_mode</strong>(mask_mode : Bool)</a>
+        
+          <div class="summary"><p>Set text input masking.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#set_multiline%28multiline%3ABool%29-class-method" class="signature"><strong>.set_multiline</strong>(multiline : Bool)</a>
+        
+          <div class="summary"><p>Single line mode: Scrolls to the right if input text becomes wider than the current window.</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+
+
+<div class="methods-inherited">
+  
+</div>
+
+
+
+
+  <h2>
+    <a id="class-method-detail" class="anchor" href="#class-method-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Class Method Detail
+  </h2>
+  
+    <div class="entry-detail" id="add_completion(completion_state:Pointer(LibLinenoise::Completions),completion:String)-class-method">
+      <div class="signature">
+        
+        def self.<strong>add_completion</strong>(completion_state : Pointer(LibLinenoise::Completions), completion : String)
+
+        <a class="method-permalink" href="#add_completion%28completion_state%3APointer%28LibLinenoise%3A%3ACompletions%29%2Ccompletion%3AString%29-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>This method should only be called inside the completion callback to register
+valid completions.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/apainintheneck/crystal-linenoise/blob/9f6e00df7204fa6abd523b0449f72c38a29db227/src/linenoise.cr#L40" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="add_history(line:String):Bool-class-method">
+      <div class="signature">
+        
+        def self.<strong>add_history</strong>(line : String) : Bool
+
+        <a class="method-permalink" href="#add_history%28line%3AString%29%3ABool-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Register the most recent line to the history. It will be the first option
+when the user presses the up arrow key.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/apainintheneck/crystal-linenoise/blob/9f6e00df7204fa6abd523b0449f72c38a29db227/src/linenoise.cr#L74" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="clear_screen-class-method">
+      <div class="signature">
+        
+        def self.<strong>clear_screen</strong>
+
+        <a class="method-permalink" href="#clear_screen-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Clears the entire screen and sets the cursor to the top left corner.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/apainintheneck/crystal-linenoise/blob/9f6e00df7204fa6abd523b0449f72c38a29db227/src/linenoise.cr#L98" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="load_history(filename:String):Bool-class-method">
+      <div class="signature">
+        
+        def self.<strong>load_history</strong>(filename : String) : Bool
+
+        <a class="method-permalink" href="#load_history%28filename%3AString%29%3ABool-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Load the history from a file.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/apainintheneck/crystal-linenoise/blob/9f6e00df7204fa6abd523b0449f72c38a29db227/src/linenoise.cr#L89" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="max_history(length:Int):Bool-class-method">
+      <div class="signature">
+        
+        def self.<strong>max_history</strong>(length : Int) : Bool
+
+        <a class="method-permalink" href="#max_history%28length%3AInt%29%3ABool-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Change the maximum number of lines in the history.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/apainintheneck/crystal-linenoise/blob/9f6e00df7204fa6abd523b0449f72c38a29db227/src/linenoise.cr#L79" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="print_key_codes-class-method">
+      <div class="signature">
+        
+        def self.<strong>print_key_codes</strong>
+
+        <a class="method-permalink" href="#print_key_codes-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Only used for debugging. It is used in the <code>example.cr</code> program.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/apainintheneck/crystal-linenoise/blob/9f6e00df7204fa6abd523b0449f72c38a29db227/src/linenoise.cr#L113" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="prompt(prompt:String):String|Nil-class-method">
+      <div class="signature">
+        
+        def self.<strong>prompt</strong>(prompt : String) : String | Nil
+
+        <a class="method-permalink" href="#prompt%28prompt%3AString%29%3AString%7CNil-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Prompts the user for a new line of input.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/apainintheneck/crystal-linenoise/blob/9f6e00df7204fa6abd523b0449f72c38a29db227/src/linenoise.cr#L12" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="save_history(filename:String):Bool-class-method">
+      <div class="signature">
+        
+        def self.<strong>save_history</strong>(filename : String) : Bool
+
+        <a class="method-permalink" href="#save_history%28filename%3AString%29%3ABool-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Write the current history to a file.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/apainintheneck/crystal-linenoise/blob/9f6e00df7204fa6abd523b0449f72c38a29db227/src/linenoise.cr#L84" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="set_completion_callback(callback:CompletionCallback)-class-method">
+      <div class="signature">
+        
+        def self.<strong>set_completion_callback</strong>(callback : <a href="Linenoise/CompletionCallback.html">CompletionCallback</a>)
+
+        <a class="method-permalink" href="#set_completion_callback%28callback%3ACompletionCallback%29-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Note: The completion callback cannot be a closure since it will end up
+being passed to the C library internally and that is a compiler error.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/apainintheneck/crystal-linenoise/blob/9f6e00df7204fa6abd523b0449f72c38a29db227/src/linenoise.cr#L34" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="set_hints_callback(callback:HintsCallback)-class-method">
+      <div class="signature">
+        
+        def self.<strong>set_hints_callback</strong>(callback : <a href="Linenoise/HintsCallback.html">HintsCallback</a>)
+
+        <a class="method-permalink" href="#set_hints_callback%28callback%3AHintsCallback%29-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Note: The hints callback cannot be a closure since it will end up
+being passed to the C library internally and that is a compiler error.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/apainintheneck/crystal-linenoise/blob/9f6e00df7204fa6abd523b0449f72c38a29db227/src/linenoise.cr#L61" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="set_mask_mode(mask_mode:Bool)-class-method">
+      <div class="signature">
+        
+        def self.<strong>set_mask_mode</strong>(mask_mode : Bool)
+
+        <a class="method-permalink" href="#set_mask_mode%28mask_mode%3ABool%29-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Set text input masking. This prevents the user's keyboard input from
+being echoed automatically to the screen. Instead, the characters all
+get converted to asterisks (*). This is useful when users are entering
+passwords for example.</p>
+<p>By default mask mode is disabled.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/apainintheneck/crystal-linenoise/blob/9f6e00df7204fa6abd523b0449f72c38a29db227/src/linenoise.cr#L123" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="set_multiline(multiline:Bool)-class-method">
+      <div class="signature">
+        
+        def self.<strong>set_multiline</strong>(multiline : Bool)
+
+        <a class="method-permalink" href="#set_multiline%28multiline%3ABool%29-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Single line mode: Scrolls to the right if input text becomes wider than the current window.
+Mutiline mode:    Wraps the input text if it becomes wider than the current window.</p>
+<p>Defaults to single line mode.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/apainintheneck/crystal-linenoise/blob/9f6e00df7204fa6abd523b0449f72c38a29db227/src/linenoise.cr#L106" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+
+
+
+
+</div>
+
+</body>
+</html>

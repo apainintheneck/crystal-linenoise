@@ -33,5 +33,8 @@ jobs:
       - name: Build extension
         run: make extension
       
-      - name: Build example
-        run: make check
+      - name: Build examples
+        run: make check-codegen
+      
+      - name: "Check docs"
+        run: make docs

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Crystal Docs 1.10.1">
+<meta name="crystal_docs.project_version" content="add-docs-website">
+<meta name="crystal_docs.project_name" content="linenoise">
+
+
+
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="js/doc.js"></script>
+
+  <meta name="repository-name" content="linenoise">
+  <title>linenoise add-docs-website</title>
+  <script type="text/javascript">
+  CrystalDocs.base_path = "";
+  </script>
+</head>
+<body>
+
+<svg class="hidden">
+  <symbol id="octicon-link" viewBox="0 0 16 16">
+    <path fill="currentColor" fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+  </symbol>
+</svg>
+<input type="checkbox" id="sidebar-btn">
+<label for="sidebar-btn" id="sidebar-btn-label">
+  <svg class="open" xmlns="http://www.w3.org/2000/svg" height="2em" width="2em" viewBox="0 0 512 512"><title>Open Sidebar</title><path fill="currentColor" d="M80 96v64h352V96H80zm0 112v64h352v-64H80zm0 112v64h352v-64H80z"></path></svg>
+  <svg class="close" xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 512 512"><title>Close Sidebar</title><path fill="currentColor" d="m118.6 73.4-45.2 45.2L210.7 256 73.4 393.4l45.2 45.2L256 301.3l137.4 137.3 45.2-45.2L301.3 256l137.3-137.4-45.2-45.2L256 210.7Z"></path></svg>
+</label>
+<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="search-box">
+      <input type="search" class="search-input" placeholder="Search..." spellcheck="false" aria-label="Search">
+    </div>
+
+    <div class="project-summary">
+      <h1 class="project-name">
+        <a href="index.html">
+          linenoise
+        </a>
+      </h1>
+
+      <span class="project-version">
+        add-docs-website
+      </span>
+    </div>
+  </div>
+
+  <div class="search-results hidden">
+    <ul class="search-list"></ul>
+  </div>
+
+  <div class="types-list">
+    <ul>
+  
+  <li class="parent " data-id="linenoise/Linenoise" data-name="linenoise">
+      <a href="Linenoise.html">Linenoise</a>
+      
+        <ul>
+  
+  <li class=" " data-id="linenoise/Linenoise/Completion" data-name="linenoise::completion">
+      <a href="Linenoise/Completion.html">Completion</a>
+      
+    </li>
+  
+  <li class=" " data-id="linenoise/Linenoise/CompletionCallback" data-name="linenoise::completioncallback">
+      <a href="Linenoise/CompletionCallback.html">CompletionCallback</a>
+      
+    </li>
+  
+  <li class=" " data-id="linenoise/Linenoise/HintsCallback" data-name="linenoise::hintscallback">
+      <a href="Linenoise/HintsCallback.html">HintsCallback</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+  </div>
+</div>
+
+
+<div class="main-content">
+<h1><a id="linenoise" class="anchor" href="#linenoise">  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>linenoise</h1>
+<p>Note: This is still a work in progress.</p>
+<p>Crystal bindings for the lightweight <a href="https://github.com/antirez/linenoise">Linenoise</a> line editor library written in C. It is a minimal alternative to readline and libedit.</p>
+<p>Linenoise is written in C code that supports most distributions of the Linux, macOS and BSD operating systems. We compile the library on install so linking should not be a problem and the library is lightwieght (less than 900 lines of code) so the resulting binary should be small.</p>
+<h2><a id="installation" class="anchor" href="#installation">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Installation</h2>
+<ol>
+<li>
+<p>Add the dependency to your <code>shard.yml</code>:</p>
+<pre><code class="language-yaml">dependencies:
+  linenoise:
+    github: apainintheneck/linenoise</code></pre>
+</li>
+<li>
+<p>Run <code>shards install</code></p>
+</li>
+</ol>
+<h2><a id="usage" class="anchor" href="#usage">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Usage</h2>
+<pre><code class="language-crystal"><span class="k">require</span> <span class="s">&quot;linenoise&quot;</span>
+
+<span class="t">COMPLETIONS</span> <span class="o">=</span> [
+  ...
+]
+
+<span class="c"># Enable tab completions.</span>
+<span class="t">Linenoise</span><span class="t">::</span><span class="t">Completion</span>.add(<span class="t">COMPLETIONS</span>)
+
+<span class="c"># Enable completion hints to the right of the cursor.</span>
+<span class="t">Linenoise</span><span class="t">::</span><span class="t">Completion</span>.enabe_hints!
+
+<span class="c"># A simple REPL.</span>
+loop <span class="k">do</span>
+  line <span class="o">=</span> <span class="t">Linenoise</span>.prompt(<span class="s">&quot;&gt; &quot;</span>)
+
+  <span class="c"># Process line here.</span>
+<span class="k">end</span></code></pre>
+<p>For more information look at the code comments and the <code>example/example.cr</code> file.</p>
+<h2><a id="alternatives" class="anchor" href="#alternatives">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Alternatives</h2>
+<p>There are a few other line editing libraries available for Crystal.</p>
+<ul>
+<li><a href="https://github.com/I3oris/reply">reply</a></li>
+<li><a href="https://github.com/Papierkorb/fancyline">fancyline</a></li>
+<li><a href="https://github.com/crystal-lang/crystal-readline">crystal-readline</a></li>
+</ul>
+<h2><a id="development" class="anchor" href="#development">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Development</h2>
+<p>Development setup is mostly managed by the Makefile.</p>
+<p>Other than that there is the Linenoise extension in <code>ext/</code> that can be built with <code>make extension</code>. Keep in mind that this also gets installed automatically in a postinstall step when this shard is included as a dependency and <code>shard install</code> is run.</p>
+<p>Interactive testing is available using the <code>example/example.cr</code> program which allows you to check on different line editing features. It can be run with <code>make example</code>. The <code>make test</code> command runs tests on this example program using an <code>expect</code> script so <code>expect</code> will need to be installed to run them.</p>
+<p>The <code>make lint</code> command checks for linting errors and the <code>make fix</code> command fixes them automatically.</p>
+<p>The <code>crystal docs</code> command can be used to build the docs locally.</p>
+<h2><a id="contributing" class="anchor" href="#contributing">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Contributing</h2>
+<ol>
+<li>Fork it (<a href="https://github.com/apainintheneck/linenoise/fork">https://github.com/apainintheneck/linenoise/fork</a>)</li>
+<li>Create your feature branch (<code>git checkout -b my-new-feature</code>)</li>
+<li>Commit your changes (<code>git commit -am 'Add some feature'</code>)</li>
+<li>Push to the branch (<code>git push origin my-new-feature</code>)</li>
+<li>Create a new Pull Request</li>
+</ol>
+<h2><a id="contributors" class="anchor" href="#contributors">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Contributors</h2>
+<ul>
+<li><a href="https://github.com/apainintheneck">apainintheneck</a> - creator and maintainer</li>
+</ul>
+<h2><a id="license" class="anchor" href="#license">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>License</h2>
+<p>This library is released under the <a href="LICENSE">MIT license</a>.</p>
+<p>The Linenoise library is included in this shard and uses the <a href="ext/LICENSE">BSD-2-Clause license</a>
+which allows code to be used freely as long as the license is included in derivative works.</p>
+</div>
+</body>
+</html>
