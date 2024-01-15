@@ -1,3 +1,5 @@
+require "colorize"
+
 module Linenoise
   # A high-level wrapper around the linenoise completions API
   # that makes it easier to add completions to your program.
