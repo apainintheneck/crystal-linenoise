@@ -1,7 +1,5 @@
 # linenoise
 
-Note: This is still a work in progress.
-
 Crystal bindings for the lightweight [Linenoise](https://github.com/antirez/linenoise) line editor library written in C. It is a minimal alternative to readline and libedit.
 
 Linenoise is written in C code that supports most distributions of the Linux, macOS and BSD operating systems. We compile the library on install so linking should not be a problem and the library is lightwieght (less than 900 lines of code) so the resulting binary should be small.
@@ -33,15 +31,27 @@ Linenoise::Completion.add(COMPLETIONS)
 # Enable completion hints to the right of the cursor.
 Linenoise::Completion.enabe_hints!
 
+HISTORY_FILE = "..."
+
+Linenoise.load_history(HISTORY_FILE)
+
 # A simple REPL.
 loop do
   line = Linenoise.prompt("> ")
+  break if line.nil?
 
   # Process line here.
+
+  Linenoise.add_history(line)
+  Linenoise.save_history(HISTORY_FILE)
 end
 ```
 
-For more information look at the code comments and the `example/example.cr` file.
+For more information look at the files in the `example/` directory and the [documentation website](https://apainintheneck.github.io/crystal-linenoise/).
+
+### Multiplexing API
+
+There is no high-level wrapper around the multiplexing API but the Crystal bindings have been added for it. See `src/lib/lib_linenoise.cr` for more details.
 
 ## Alternatives
 
@@ -61,7 +71,7 @@ Interactive testing is available using the `example/example.cr` program which al
 
 The `make lint` command checks for linting errors and the `make fix` command fixes them automatically.
 
-The `crystal docs` command can be used to build the docs locally.
+The `crystal docs` command can be used to build the docs locally or you can visit the [documentation website](https://apainintheneck.github.io/crystal-linenoise/) that gets generated automatically by the `.github/workflows/docs.yml` workflow.
 
 ## Contributing
 
