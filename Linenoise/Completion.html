@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Crystal Docs 1.10.1">
+<meta name="crystal_docs.project_version" content="HEAD">
+<meta name="crystal_docs.project_name" content="linenoise">
+
+
+
+<link href="../css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../js/doc.js"></script>
+
+  <meta name="repository-name" content="linenoise">
+  <title>Linenoise::Completion - linenoise HEAD</title>
+  <script type="text/javascript">
+    CrystalDocs.base_path = "../";
+  </script>
+</head>
+<body>
+
+<svg class="hidden">
+  <symbol id="octicon-link" viewBox="0 0 16 16">
+    <path fill="currentColor" fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path>
+  </symbol>
+</svg>
+<input type="checkbox" id="sidebar-btn">
+<label for="sidebar-btn" id="sidebar-btn-label">
+  <svg class="open" xmlns="http://www.w3.org/2000/svg" height="2em" width="2em" viewBox="0 0 512 512"><title>Open Sidebar</title><path fill="currentColor" d="M80 96v64h352V96H80zm0 112v64h352v-64H80zm0 112v64h352v-64H80z"></path></svg>
+  <svg class="close" xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 512 512"><title>Close Sidebar</title><path fill="currentColor" d="m118.6 73.4-45.2 45.2L210.7 256 73.4 393.4l45.2 45.2L256 301.3l137.4 137.3 45.2-45.2L301.3 256l137.3-137.4-45.2-45.2L256 210.7Z"></path></svg>
+</label>
+<div class="sidebar">
+  <div class="sidebar-header">
+    <div class="search-box">
+      <input type="search" class="search-input" placeholder="Search..." spellcheck="false" aria-label="Search">
+    </div>
+
+    <div class="project-summary">
+      <h1 class="project-name">
+        <a href="../index.html">
+          linenoise
+        </a>
+      </h1>
+
+      <span class="project-version">
+        HEAD
+      </span>
+    </div>
+  </div>
+
+  <div class="search-results hidden">
+    <ul class="search-list"></ul>
+  </div>
+
+  <div class="types-list">
+    <ul>
+  
+  <li class="parent open current" data-id="linenoise/Linenoise" data-name="linenoise">
+      <a href="../Linenoise.html">Linenoise</a>
+      
+        <ul>
+  
+  <li class=" current" data-id="linenoise/Linenoise/Completion" data-name="linenoise::completion">
+      <a href="../Linenoise/Completion.html">Completion</a>
+      
+    </li>
+  
+  <li class=" " data-id="linenoise/Linenoise/CompletionCallback" data-name="linenoise::completioncallback">
+      <a href="../Linenoise/CompletionCallback.html">CompletionCallback</a>
+      
+    </li>
+  
+  <li class=" " data-id="linenoise/Linenoise/HintsCallback" data-name="linenoise::hintscallback">
+      <a href="../Linenoise/HintsCallback.html">HintsCallback</a>
+      
+    </li>
+  
+</ul>
+
+      
+    </li>
+  
+</ul>
+
+  </div>
+</div>
+
+
+<div class="main-content">
+<h1 class="type-name">
+
+  <span class="kind">module</span> Linenoise::<wbr>Completion
+
+</h1>
+
+
+
+
+
+  <h2>
+    <a id="overview" class="anchor" href="#overview">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Overview
+  </h2>
+
+  <p>A high-level wrapper around the linenoise completions API
+that makes it easier to add completions to your program.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2>
+    <a id="defined-in" class="anchor" href="#defined-in">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Defined in:
+  </h2>
+  
+    
+      <a href="https://github.com/apainintheneck/crystal-linenoise/blob/19b5299978e5e0768fcdddb909b80716870ba273/src/linenoise/completions.cr#L6" target="_blank">
+        linenoise/completions.cr
+      </a>
+    
+    <br/>
+  
+
+
+
+
+
+
+
+  <h2>
+    <a id="class-method-summary" class="anchor" href="#class-method-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Class Method Summary
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#add%28completion%3AString%29-class-method" class="signature"><strong>.add</strong>(completion : String)</a>
+        
+          <div class="summary"><p>Add a new completion string.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#add%28completions%3AArray%28String%29%29-class-method" class="signature"><strong>.add</strong>(completions : Array(String))</a>
+        
+          <div class="summary"><p>Add a batch of new completions.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#enable_hints%21%28color%3AColorize%3A%3AColorANSI%7CNil%3Dnil%29-class-method" class="signature"><strong>.enable_hints!</strong>(color : Colorize::ColorANSI | Nil = <span class="n">nil</span>)</a>
+        
+          <div class="summary"><p>Enables hints that match the tab completions.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#remove%28completion%3AString%29-class-method" class="signature"><strong>.remove</strong>(completion : String)</a>
+        
+          <div class="summary"><p>Remove a completion.</p></div>
+        
+      </li>
+    
+  </ul>
+
+
+
+
+
+
+
+<div class="methods-inherited">
+  
+</div>
+
+
+
+
+  <h2>
+    <a id="class-method-detail" class="anchor" href="#class-method-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Class Method Detail
+  </h2>
+  
+    <div class="entry-detail" id="add(completion:String)-class-method">
+      <div class="signature">
+        
+        def self.<strong>add</strong>(completion : String)
+
+        <a class="method-permalink" href="#add%28completion%3AString%29-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Add a new completion string.</p>
+<p>Note: This sets a completion callback internally.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/apainintheneck/crystal-linenoise/blob/19b5299978e5e0768fcdddb909b80716870ba273/src/linenoise/completions.cr#L52" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="add(completions:Array(String))-class-method">
+      <div class="signature">
+        
+        def self.<strong>add</strong>(completions : Array(String))
+
+        <a class="method-permalink" href="#add%28completions%3AArray%28String%29%29-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Add a batch of new completions.</p>
+<p>Note: This sets a completion callback internally.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/apainintheneck/crystal-linenoise/blob/19b5299978e5e0768fcdddb909b80716870ba273/src/linenoise/completions.cr#L67" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="enable_hints!(color:Colorize::ColorANSI|Nil=nil)-class-method">
+      <div class="signature">
+        
+        def self.<strong>enable_hints!</strong>(color : Colorize::ColorANSI | Nil = <span class="n">nil</span>)
+
+        <a class="method-permalink" href="#enable_hints%21%28color%3AColorize%3A%3AColorANSI%7CNil%3Dnil%29-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Enables hints that match the tab completions.
+Hints are shown in dark grey lettering by default to differentiate
+them from the characters that the user has already typed.</p>
+<p>Note: This sets a hints callback internally.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/apainintheneck/crystal-linenoise/blob/19b5299978e5e0768fcdddb909b80716870ba273/src/linenoise/completions.cr#L97" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="remove(completion:String)-class-method">
+      <div class="signature">
+        
+        def self.<strong>remove</strong>(completion : String)
+
+        <a class="method-permalink" href="#remove%28completion%3AString%29-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Remove a completion.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/apainintheneck/crystal-linenoise/blob/19b5299978e5e0768fcdddb909b80716870ba273/src/linenoise/completions.cr#L78" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+
+
+
+
+
+
+</div>
+
+</body>
+</html>
