@@ -11,7 +11,7 @@ Linenoise is written in C code that supports most distributions of the Linux, ma
    ```yaml
    dependencies:
      linenoise:
-       github: apainintheneck/linenoise
+       github: apainintheneck/crystal-linenoise
    ```
 
 2. Run `shards install`
