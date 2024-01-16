@@ -93,7 +93,6 @@
     <use href="#octicon-link"/>
   </svg>
 </a>linenoise</h1>
-<p>Note: This is still a work in progress.</p>
 <p>Crystal bindings for the lightweight <a href="https://github.com/antirez/linenoise">Linenoise</a> line editor library written in C. It is a minimal alternative to readline and libedit.</p>
 <p>Linenoise is written in C code that supports most distributions of the Linux, macOS and BSD operating systems. We compile the library on install so linking should not be a problem and the library is lightwieght (less than 900 lines of code) so the resulting binary should be small.</p>
 <h2><a id="installation" class="anchor" href="#installation">
@@ -129,13 +128,27 @@
 <span class="c"># Enable completion hints to the right of the cursor.</span>
 <span class="t">Linenoise</span><span class="t">::</span><span class="t">Completion</span>.enabe_hints!
 
+<span class="t">HISTORY_FILE</span> <span class="o">=</span> <span class="s">&quot;...&quot;</span>
+
+<span class="t">Linenoise</span>.load_history(<span class="t">HISTORY_FILE</span>)
+
 <span class="c"># A simple REPL.</span>
 loop <span class="k">do</span>
   line <span class="o">=</span> <span class="t">Linenoise</span>.prompt(<span class="s">&quot;&gt; &quot;</span>)
+  <span class="k">break</span> <span class="k">if</span> line.<span class="k">nil?</span>
 
   <span class="c"># Process line here.</span>
+
+  <span class="t">Linenoise</span>.add_history(line)
+  <span class="t">Linenoise</span>.save_history(<span class="t">HISTORY_FILE</span>)
 <span class="k">end</span></code></pre>
-<p>For more information look at the code comments and the <code>example/example.cr</code> file.</p>
+<p>For more information look at the files in the <code>example/</code> directory and the <a href="https://apainintheneck.github.io/crystal-linenoise/">documentation website</a>.</p>
+<h3><a id="multiplexing-api" class="anchor" href="#multiplexing-api">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Multiplexing API</h3>
+<p>There is no high-level wrapper around the multiplexing API but the Crystal bindings have been added for it. See <code>src/lib/lib_linenoise.cr</code> for more details.</p>
 <h2><a id="alternatives" class="anchor" href="#alternatives">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
@@ -156,7 +169,7 @@ loop <span class="k">do</span>
 <p>Other than that there is the Linenoise extension in <code>ext/</code> that can be built with <code>make extension</code>. Keep in mind that this also gets installed automatically in a postinstall step when this shard is included as a dependency and <code>shard install</code> is run.</p>
 <p>Interactive testing is available using the <code>example/example.cr</code> program which allows you to check on different line editing features. It can be run with <code>make example</code>. The <code>make test</code> command runs tests on this example program using an <code>expect</code> script so <code>expect</code> will need to be installed to run them.</p>
 <p>The <code>make lint</code> command checks for linting errors and the <code>make fix</code> command fixes them automatically.</p>
-<p>The <code>crystal docs</code> command can be used to build the docs locally.</p>
+<p>The <code>crystal docs</code> command can be used to build the docs locally or you can visit the <a href="https://apainintheneck.github.io/crystal-linenoise/">documentation website</a> that gets generated automatically by the <code>.github/workflows/docs.yml</code> workflow.</p>
 <h2><a id="contributing" class="anchor" href="#contributing">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
