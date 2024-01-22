@@ -24,6 +24,7 @@ module Linenoise
         string > first_match && !string.starts_with?(line)
       end || self.completions.size
 
+      # TODO: It might make sense to limit this completion size at some point.
       matches = self.completions[left_index...right_index]
       matches.sort_by!(&.size) if prefer_shorter_matches?
       matches
