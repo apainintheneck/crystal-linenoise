@@ -2,7 +2,7 @@ require "./lib/lib_linenoise"
 require "./linenoise/completions"
 
 module Linenoise
-  VERSION = "0.1.0"
+  VERSION = "0.2.0"
 
   #
   # Blocking API.
