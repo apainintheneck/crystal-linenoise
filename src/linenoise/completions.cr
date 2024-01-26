@@ -3,6 +3,9 @@ require "colorize"
 module Linenoise
   # A high-level wrapper around the linenoise completions API
   # that makes it easier to add completions to your program.
+  #
+  # Note: By default completions that start with the current line
+  # are shown in alphabetical order.
   module Completion
     # Memoized completions array that makes it easier to access
     # completions from the completions callback.
