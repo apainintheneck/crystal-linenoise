@@ -5,7 +5,7 @@ authors:
   - Kevin Robell <apainintheneck@gmail.com>
 
 scripts:
-  postinstall: "make extension"
+  postinstall: 'make clean extension'
 
 crystal: '>= 1.10.1'
 
