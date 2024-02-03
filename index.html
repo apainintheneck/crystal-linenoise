@@ -167,7 +167,7 @@ loop <span class="k">do</span>
 </a>Development</h2>
 <p>Development setup is mostly managed by the Makefile.</p>
 <p>Other than that there is the Linenoise extension in <code>ext/</code> that can be built with <code>make extension</code>. Keep in mind that this also gets installed automatically in a postinstall step when this shard is included as a dependency and <code>shard install</code> is run.</p>
-<p>Interactive testing is available using the <code>example/example.cr</code> program which allows you to check on different line editing features. It can be run with <code>make example</code>. The <code>make test</code> command runs tests on this example program using an <code>expect</code> script so <code>expect</code> will need to be installed to run them.</p>
+<p>Interactive testing is available using the <code>example/example.cr</code> program which allows you to check on different line editing features. It can be run with <code>make example</code>. The <code>make specs</code> command runs the Crystal specs. The <code>make expect</code> command runs tests on this example program using an <code>expect</code> script so <code>expect</code> will need to be installed to run them.</p>
 <p>The <code>make lint</code> command checks for linting errors and the <code>make fix</code> command fixes them automatically.</p>
 <p>The <code>crystal docs</code> command can be used to build the docs locally or you can visit the <a href="https://apainintheneck.github.io/crystal-linenoise/">documentation website</a> that gets generated automatically by the <code>.github/workflows/docs.yml</code> workflow.</p>
 <h2><a id="contributing" class="anchor" href="#contributing">

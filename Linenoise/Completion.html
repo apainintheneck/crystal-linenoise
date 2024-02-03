@@ -136,8 +136,8 @@ are shown in alphabetical order.</p>
   </h2>
   
     
-      <a href="https://github.com/apainintheneck/crystal-linenoise/blob/9b4ad0654d66faa445d21dede5a18981e3b9ee08/src/linenoise/completions.cr#L9" target="_blank">
-        linenoise/completions.cr
+      <a href="https://github.com/apainintheneck/crystal-linenoise/blob/a02736a814f03cd51ad44930652325c54a96bce2/src/linenoise/completion.cr#L9" target="_blank">
+        linenoise/completion.cr
       </a>
     
     <br/>
@@ -174,6 +174,13 @@ are shown in alphabetical order.</p>
       </li>
     
       <li class="entry-summary">
+        <a href="#completion_matches%28line%3AString%29%3AArray%28String%29-class-method" class="signature"><strong>.completion_matches</strong>(line : String) : Array(String)</a>
+        
+          <div class="summary"><p>Finds completion matches that begin with the given line.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
         <a href="#enable_hints%21%28color%3AColorize%3A%3AColorANSI%7CNil%3Dnil%29-class-method" class="signature"><strong>.enable_hints!</strong>(color : Colorize::ColorANSI | Nil = <span class="n">nil</span>)</a>
         
           <div class="summary"><p>Enables hints that match the tab completions.</p></div>
@@ -181,9 +188,23 @@ are shown in alphabetical order.</p>
       </li>
     
       <li class="entry-summary">
+        <a href="#prefer_shorter_matches%21-class-method" class="signature"><strong>.prefer_shorter_matches!</strong></a>
+        
+          <div class="summary"><p>Completions will be sorted by size instead of alphabetically.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
         <a href="#remove%28completion%3AString%29-class-method" class="signature"><strong>.remove</strong>(completion : String)</a>
         
           <div class="summary"><p>Remove a completion.</p></div>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#reset%21-class-method" class="signature"><strong>.reset!</strong></a>
+        
+          <div class="summary"><p>Resets the completions array, whether shorter matches are preffered, hint color, and the callbacks.</p></div>
         
       </li>
     
@@ -228,7 +249,7 @@ are shown in alphabetical order.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/apainintheneck/crystal-linenoise/blob/9b4ad0654d66faa445d21dede5a18981e3b9ee08/src/linenoise/completions.cr#L55" target="_blank">View source</a>]
+          [<a href="https://github.com/apainintheneck/crystal-linenoise/blob/a02736a814f03cd51ad44930652325c54a96bce2/src/linenoise/completion.cr#L65" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -250,7 +271,32 @@ are shown in alphabetical order.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/apainintheneck/crystal-linenoise/blob/9b4ad0654d66faa445d21dede5a18981e3b9ee08/src/linenoise/completions.cr#L70" target="_blank">View source</a>]
+          [<a href="https://github.com/apainintheneck/crystal-linenoise/blob/a02736a814f03cd51ad44930652325c54a96bce2/src/linenoise/completion.cr#L80" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="completion_matches(line:String):Array(String)-class-method">
+      <div class="signature">
+        
+        def self.<strong>completion_matches</strong>(line : String) : Array(String)
+
+        <a class="method-permalink" href="#completion_matches%28line%3AString%29%3AArray%28String%29-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Finds completion matches that begin with the given line.
+The results are sorted alphabetically by default.
+The results are sorted by size if prefer shorter matches is set.</p>
+<p>Note: This is made public for testing purposes but doesn't need
+to be called directly.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/apainintheneck/crystal-linenoise/blob/a02736a814f03cd51ad44930652325c54a96bce2/src/linenoise/completion.cr#L30" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -274,7 +320,28 @@ them from the characters that the user has already typed.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/apainintheneck/crystal-linenoise/blob/9b4ad0654d66faa445d21dede5a18981e3b9ee08/src/linenoise/completions.cr#L100" target="_blank">View source</a>]
+          [<a href="https://github.com/apainintheneck/crystal-linenoise/blob/a02736a814f03cd51ad44930652325c54a96bce2/src/linenoise/completion.cr#L105" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="prefer_shorter_matches!-class-method">
+      <div class="signature">
+        
+        def self.<strong>prefer_shorter_matches!</strong>
+
+        <a class="method-permalink" href="#prefer_shorter_matches%21-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Completions will be sorted by size instead of alphabetically.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/apainintheneck/crystal-linenoise/blob/a02736a814f03cd51ad44930652325c54a96bce2/src/linenoise/completion.cr#L128" target="_blank">View source</a>]
         
       </div>
     </div>
@@ -295,7 +362,29 @@ them from the characters that the user has already typed.</p>
       <br/>
       <div>
         
-          [<a href="https://github.com/apainintheneck/crystal-linenoise/blob/9b4ad0654d66faa445d21dede5a18981e3b9ee08/src/linenoise/completions.cr#L81" target="_blank">View source</a>]
+          [<a href="https://github.com/apainintheneck/crystal-linenoise/blob/a02736a814f03cd51ad44930652325c54a96bce2/src/linenoise/completion.cr#L91" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="reset!-class-method">
+      <div class="signature">
+        
+        def self.<strong>reset!</strong>
+
+        <a class="method-permalink" href="#reset%21-class-method">#</a>
+      </div>
+      
+        <div class="doc">
+          
+          <p>Resets the completions array, whether shorter matches are preffered,
+hint color, and the callbacks. Mostly just needed for testing.</p>
+        </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/apainintheneck/crystal-linenoise/blob/a02736a814f03cd51ad44930652325c54a96bce2/src/linenoise/completion.cr#L134" target="_blank">View source</a>]
         
       </div>
     </div>
