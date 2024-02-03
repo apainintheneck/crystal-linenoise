@@ -7,33 +7,42 @@ module Linenoise
   # Note: By default completions that start with the current line
   # are shown in alphabetical order.
   module Completion
-    @@hint_color : Int32?
+    # Defaults to dark gray to differentiate it from normal text colors.
+    @@hint_color : Int32 = Colorize::ColorANSI::DarkGray.to_i
 
-    # Memoized completions array that makes it easier to access
-    # completions from the completions callback.
-    private def self.completions : Array(String)
-      @@completions ||= Array(String).new
-    end
+    # By default completions are sorted alphabetically.
+    @@prefer_shorter_matches = false
+
+    # The list of all completions that is sorted alphabetically for searchability.
+    @@completions = [] of String
 
     # Find the index of the closest match to the given line.
     private def self.find_index(line : String) : Int32?
-      self.completions.bsearch_index { |string| string >= line }
+      @@completions.bsearch_index { |string| string >= line }
     end
 
-    # Yields each completion that begins with the given line as a `String`.
-    # The results are sorted by closest match.
-    private def self.each_completion(line : String, &)
-      return if line.empty?
+    # Finds completion matches that begin with the given line.
+    # The results are sorted alphabetically by default.
+    # The results are sorted by size if prefer shorter matches is set.
+    #
+    # Note: This is made public for testing purposes but doesn't need
+    # to be called directly.
+    def self.completion_matches(line : String) : Array(String)
+      matches = [] of String
+      return matches if line.empty?
 
       index = self.find_index(line)
-      return if index.nil?
+      return matches if index.nil?
 
-      while index < self.completions.size
-        break unless self.completions[index].starts_with?(line)
+      while index < @@completions.size
+        break unless @@completions[index].starts_with?(line)
 
-        yield self.completions[index]
+        matches << @@completions[index]
         index += 1
       end
+
+      matches.sort_by!(&.size) if @@prefer_shorter_matches
+      matches
     end
 
     # Sets the callback once using memoization to check if it's already set.
@@ -41,7 +50,8 @@ module Linenoise
       return if @@set_callback
 
       Linenoise.set_completion_callback ->(raw_line : Pointer(UInt8), completion_state : Pointer(LibLinenoise::Completions)) do
-        self.each_completion(String.new(raw_line)) do |completion|
+        line = String.new(raw_line)
+        self.completion_matches(line).each do |completion|
           Linenoise.add_completion(completion_state, completion)
         end
       end
@@ -56,9 +66,9 @@ module Linenoise
       index = self.find_index(completion)
 
       if index.nil?
-        self.completions.push(completion)
-      elsif self.completions[index] != completion
-        self.completions.insert(index, completion)
+        @@completions.push(completion)
+      elsif @@completions[index] != completion
+        @@completions.insert(index, completion)
       end
 
       self.set_callback
@@ -70,9 +80,9 @@ module Linenoise
     def self.add(completions : Array(String))
       return if completions.empty?
 
-      self.completions.concat(completions)
-      self.completions.uniq!
-      self.completions.sort!
+      @@completions.concat(completions)
+      @@completions.uniq!
+      @@completions.sort!
 
       self.set_callback
     end
@@ -82,14 +92,9 @@ module Linenoise
       index = self.find_index(completion)
 
       return if index.nil?
-      return if self.completions[index] != completion
+      return if @@completions[index] != completion
 
-      self.completions.delete_at(index)
-    end
-
-    # Defaults to dark gray to differentiate it from normal text colors.
-    private def self.hint_color : Int32
-      @@hint_color ||= Colorize::ColorANSI::DarkGray.to_i
+      @@completions.delete_at(index)
     end
 
     # Enables hints that match the tab completions.
@@ -97,7 +102,7 @@ module Linenoise
     # them from the characters that the user has already typed.
     #
     # Note: This sets a hints callback internally.
-    def self.enable_hints!(color : Colorize::ColorANSI | Nil = nil)
+    def self.enable_hints!(color : Colorize::ColorANSI? = nil)
       return if @@enable_hints
 
       @@hint_color = color.to_i unless color.nil?
@@ -105,10 +110,10 @@ module Linenoise
       Linenoise.set_hints_callback ->(raw_line : Pointer(UInt8), color : Pointer(Int32), attribute : Pointer(Int32)) : Pointer(UInt8) do
         line = String.new(raw_line)
 
-        self.each_completion(line) do |hint|
+        self.completion_matches(line).each do |hint|
           next if hint == line
 
-          color.value = self.hint_color
+          color.value = @@hint_color
           attribute.value = 0
           return hint.byte_slice(start: line.size).to_unsafe
         end
@@ -117,6 +122,21 @@ module Linenoise
       end
 
       @@enable_hints = true
+    end
+
+    # Completions will be sorted by size instead of alphabetically.
+    def self.prefer_shorter_matches!
+      @@prefer_shorter_matches = true
+    end
+
+    # Resets the completions array, whether shorter matches are preffered,
+    # hint color, and the callbacks. Mostly just needed for testing.
+    def self.reset!
+      @@completions.clear
+      @@prefer_shorter_matches = false
+      @@hint_color = Colorize::ColorANSI::DarkGray.to_i
+      @@set_callback = nil
+      @@enable_hints = nil
     end
   end
 end

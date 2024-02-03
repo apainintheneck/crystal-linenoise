@@ -21,10 +21,17 @@ lint:
 fix:
 	crystal tool format
 
-test: extension
+specs:
+	crystal spec --order random
+
+expect: extension
+	@echo ":----------:"
 	expect -f expect/example.expect
 	@echo ":----------:"
 	expect -f expect/completion.expect
+	@echo ":----------:"
+
+test: specs expect
 
 clean:
 	rm -f src/lib/linenoise.o

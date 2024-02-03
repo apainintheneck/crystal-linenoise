@@ -32,6 +32,9 @@ jobs:
 
       - name: Build extension
         run: make extension
-      
+
       - name: Build example
         run: make check
+
+      - name: Run specs
+        run: make specs

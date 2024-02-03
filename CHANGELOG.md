@@ -1,5 +1,15 @@
 # Changelog
 
+## [Unreleased]
+
+### Added
+
+- Specs for completion matches in high-level completion wrapper
+
+### Fixed
+
+- Fix bug in prefer shorter matches
+
 ## [0.2.0] - 2024-01-25
 
 ### Added

@@ -3,7 +3,7 @@
 require "../src/linenoise"
 
 Linenoise::Completion.add(["hello", "hello there"])
-Linenoise::Completion.add("hello there everyone")
+Linenoise::Completion.add("howdy")
 Linenoise::Completion.enable_hints!
 
 loop do
@@ -11,6 +11,9 @@ loop do
   break if line.nil?
 
   case line
+  when ":prefer_shorter_matches"
+    Linenoise::Completion.prefer_shorter_matches!
+    puts
   when ":exit", ":quit"
     puts "Bye!"
     break
