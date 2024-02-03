@@ -1,5 +1,5 @@
 require "./lib/lib_linenoise"
-require "./linenoise/completions"
+require "./linenoise/completion"
 
 module Linenoise
   VERSION = "0.2.0"
