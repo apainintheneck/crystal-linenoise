@@ -124,10 +124,13 @@ module Linenoise
       @@enable_hints = true
     end
 
+    # Completions will be sorted by size instead of alphabetically.
     def self.prefer_shorter_matches!
       @@prefer_shorter_matches = true
     end
 
+    # Resets the completions array, whether shorter matches are preffered,
+    # hint color, and the callbacks. Mostly just needed for testing.
     def self.reset!
       @@completions.clear
       @@prefer_shorter_matches = false
