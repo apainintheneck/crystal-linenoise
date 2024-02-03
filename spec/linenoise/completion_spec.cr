@@ -76,7 +76,7 @@ describe Linenoise::Completion do
       Linenoise::Completion.completion_matches("s").should eq %w[seven six]
     end
 
-    describe ".prefer_shorter_matches?" do
+    describe ".prefer_shorter_matches!" do
       before_each do
         Linenoise::Completion.prefer_shorter_matches!
       end
