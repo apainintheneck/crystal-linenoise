@@ -1,6 +1,6 @@
 .PHONY: example extension lint fix test clean
 
-CFLAGS = -Wall -W -c -std=c99 -O2
+CFLAGS = -Wall -Wextra -Wpedantic -c -std=c11 -O2
 
 default: extension lint test
 
