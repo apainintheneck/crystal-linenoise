@@ -4,11 +4,13 @@
 
 ### Added
 
-- Specs for completion matches in high-level completion wrapper
+- Add specs for completion matches in high-level completion wrapper
+- Add specs for command history
 
 ### Fixed
 
 - Fix bug in prefer shorter matches
+- Fix bug in command history on Linux
 
 ## [0.2.0] - 2024-01-25
 
