@@ -35,3 +35,23 @@ All credit goes to antirez as mentioned in the license includes in this director
   - `https://github.com/emvigo`
 - Note
   - This branch helped fix a bug on Linux with command line history.
+
+---
+
+## Branch: Bug fix when the prompt contains ESC chars
+
+- Last Copied
+  - 2024-02-05
+- Last Commit
+  - Date
+    - 2017-02-28
+  - SHA
+    - be1fc44d69fbf37587b50e4aed42efbe7d925174
+- Branch URL
+  - `https://github.com/antirez/linenoise/pull/135`
+- User URL
+  - `https://github.com/olegat`
+- Note
+  - This branch helped fix a bug where the cursor would be offset
+    when using escape codes because it was calculating the literal
+    offset instead of the visual offset.
