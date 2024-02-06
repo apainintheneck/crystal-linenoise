@@ -11,6 +11,7 @@
 
 - Fix bug in prefer shorter matches
 - Fix bug in command history on Linux
+- Fix bug in cursor offset position when using escape codes
 
 ## [0.2.0] - 2024-01-25
 

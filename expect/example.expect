@@ -21,7 +21,7 @@ proc eof_error {} {
 # Variables
 #
 
-set prompt "hello> "
+set prompt "\033\[01;33mhello\033\[0m> "
 set newline "\r\n"
 set tab "\t"
 set up "\033\[A"
@@ -35,7 +35,7 @@ spawn crystal run example/example.cr
 
 # Expect initial prompt to load.
 expect {
-  -regex "hello> $" {}
+  -regex "> $" {}
   timeout timeout_error
   eof eof_error
 }

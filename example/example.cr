@@ -120,7 +120,7 @@ File.tempfile(suffix: "example_history.txt") do |history_file|
   puts HELP_TEXT
 
   loop do
-    line = Linenoise.prompt("hello> ")
+    line = Linenoise.prompt("\033[01;33mhello\033[0m> ")
     break if line.nil?
 
     args = line.split
