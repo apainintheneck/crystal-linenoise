@@ -49,7 +49,10 @@ end
 
 For more information look at the files in the `example/` directory and the [documentation website](https://apainintheneck.github.io/crystal-linenoise/).
 
-### Multiplexing API
+## Missing Features & Known Bugs
+UTF-8 support is not included but there have been multiple attempts at adding that in the past. It might be worth investigating more if any of those is mature enough to be worth including here as a patch. See https://github.com/apainintheneck/crystal-linenoise/issues/21 for more info.
+
+The multiline mode doesn't currently support escape codes when calculating cursor position so the presence of them will mean that the cursor will end up further to the right than expected. Single line mode support for escape codes was added in https://github.com/apainintheneck/crystal-linenoise/pull/22 in v0.3.0.
 
 There is no high-level wrapper around the multiplexing API but the Crystal bindings have been added for it. See `src/lib/lib_linenoise.cr` for more details.
 
