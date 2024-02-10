@@ -1,4 +1,4 @@
-## Linenoise Extension Info
+## Linenoise Extension Changes
 
 All credit goes to antirez as mentioned in the license includes in this directory.
 
@@ -55,3 +55,21 @@ All credit goes to antirez as mentioned in the license includes in this director
   - This branch helped fix a bug where the cursor would be offset
     when using escape codes because it was calculating the literal
     offset instead of the visual offset.
+
+---
+
+## Branch: Remove extra unistd.h include
+
+- Last Copied
+  - 2024-02-10
+- Last Commit
+  - Date
+    - 2017-04-17
+  - SHA
+    - c1afa560fd11825774df8233363c3b611dac6683
+- Branch URL
+  - `https://github.com/antirez/linenoise/pull/139`
+- User URL
+  - `https://github.com/gdawg`
+- Note
+  - This just removes an extra include.
