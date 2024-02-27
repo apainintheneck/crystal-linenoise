@@ -119,6 +119,7 @@
 #include <sys/types.h>
 #include <sys/ioctl.h>
 #include "linenoise.h"
+#include "utf8.h"
 
 #define LINENOISE_DEFAULT_HISTORY_MAX_LEN 100
 #define LINENOISE_MAX_LINE 4096
@@ -140,7 +141,7 @@ static int history_max_len = LINENOISE_DEFAULT_HISTORY_MAX_LEN;
 static int history_len = 0;
 static char **history = NULL;
 
-enum KEY_ACTION{
+enum KEY_ACTION {
 	KEY_NULL = 0,	    /* NULL */
 	CTRL_A = 1,         /* Ctrl+a */
 	CTRL_B = 2,         /* Ctrl-b */
@@ -189,41 +190,52 @@ FILE *lndebug_fp = NULL;
 #endif
 
 /* ========================== Encoding functions ============================= */
+
+typedef size_t (linenoisePrevCharLen)(const char *buf, size_t buf_len, size_t pos, size_t *col_len);
+typedef size_t (linenoiseNextCharLen)(const char *buf, size_t buf_len, size_t pos, size_t *col_len);
+typedef size_t (linenoiseReadCode)(int fd, char *buf, size_t buf_len, int* c);
+
+/* Set default encoding functions */
+static linenoisePrevCharLen *prevCharLen = linenoiseUtf8PrevCharLen;
+static linenoiseNextCharLen *nextCharLen = linenoiseUtf8NextCharLen;
+static linenoiseReadCode *readCode = linenoiseUtf8ReadCode;
+
 /* Get byte length and column length of the previous character */
-static size_t defaultPrevCharLen(const char *buf, size_t buf_len, size_t pos, size_t *col_len) {
+static size_t asciiPrevCharLen(const char *buf, size_t buf_len, size_t pos, size_t *col_len) {
     UNUSED(buf); UNUSED(buf_len); UNUSED(pos);
     if (col_len != NULL) *col_len = 1;
     return 1;
 }
 
 /* Get byte length and column length of the next character */
-static size_t defaultNextCharLen(const char *buf, size_t buf_len, size_t pos, size_t *col_len) {
+static size_t asciiNextCharLen(const char *buf, size_t buf_len, size_t pos, size_t *col_len) {
     UNUSED(buf); UNUSED(buf_len); UNUSED(pos);
     if (col_len != NULL) *col_len = 1;
     return 1;
 }
 
 /* Read bytes of the next character */
-static size_t defaultReadCode(int fd, char *buf, size_t buf_len, int* c) {
+static size_t asciiReadCode(int fd, char *buf, size_t buf_len, int* c) {
     if (buf_len < 1) return -1;
     int nread = read(fd,&buf[0],1);
     if (nread == 1) *c = buf[0];
     return nread;
 }
 
-/* Set default encoding functions */
-static linenoisePrevCharLen *prevCharLen = defaultPrevCharLen;
-static linenoiseNextCharLen *nextCharLen = defaultNextCharLen;
-static linenoiseReadCode *readCode = defaultReadCode;
-
-/* Set used defined encoding functions */
-void linenoiseSetEncodingFunctions(
-    linenoisePrevCharLen *prevCharLenFunc,
-    linenoiseNextCharLen *nextCharLenFunc,
-    linenoiseReadCode *readCodeFunc) {
-    prevCharLen = prevCharLenFunc;
-    nextCharLen = nextCharLenFunc;
-    readCode = readCodeFunc;
+/* Set string encoding functions */
+void linenoiseSetEncoding(enum STRING_ENCODING encoding) {
+    switch(encoding) {
+        case ASCII:
+            prevCharLen = asciiPrevCharLen;
+            nextCharLen = asciiNextCharLen;
+            readCode = asciiReadCode;
+            break;
+        case UTF8:
+            prevCharLen = linenoiseUtf8PrevCharLen;
+            nextCharLen = linenoiseUtf8NextCharLen;
+            readCode = linenoiseUtf8ReadCode;
+            break;
+    }
 }
 
 /* Get column length from begining of buffer to current byte position */

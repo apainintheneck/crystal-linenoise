@@ -106,14 +106,13 @@ void linenoisePrintKeyCodes(void);
 void linenoiseMaskModeEnable(void);
 void linenoiseMaskModeDisable(void);
 
-typedef size_t (linenoisePrevCharLen)(const char *buf, size_t buf_len, size_t pos, size_t *col_len);
-typedef size_t (linenoiseNextCharLen)(const char *buf, size_t buf_len, size_t pos, size_t *col_len);
-typedef size_t (linenoiseReadCode)(int fd, char *buf, size_t buf_len, int* c);
+/* String encoding. */
+enum STRING_ENCODING {
+    ASCII,
+    UTF8 // default
+};
 
- void linenoiseSetEncodingFunctions(
-     linenoisePrevCharLen *prevCharLenFunc,
-     linenoiseNextCharLen *nextCharLenFunc,
-     linenoiseReadCode *readCodeFunc);
+void linenoiseSetEncoding(enum STRING_ENCODING);
 
 #ifdef __cplusplus
 }

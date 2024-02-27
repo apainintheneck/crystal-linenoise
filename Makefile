@@ -7,9 +7,12 @@ default: extension lint test
 example: extension
 	crystal run example/example.cr
 
-extension: src/lib/linenoise.o
+extension: src/lib/linenoise.o src/lib/utf8.o
 
 src/lib/linenoise.o: ext/linenoise.c ext/linenoise.h
+	$(CC) -o $@ $< $(CFLAGS)
+
+src/lib/utf8.o: ext/utf8.c ext/utf8.h
 	$(CC) -o $@ $< $(CFLAGS)
 
 check: extension
@@ -35,3 +38,4 @@ test: specs expect
 
 clean:
 	rm -f src/lib/linenoise.o
+	rm -f src/lib/utf8.o
