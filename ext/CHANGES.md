@@ -93,3 +93,6 @@ All credit goes to antirez as mentioned in the license includes in this director
   - This is a massive PR which provides UTF8 support and at
     the same time fixes the cursor position errors in multiline
     mode. It currently supports Unicode 14.0.
+  - The list of UTF-8 character mappings was created by parsing
+    the UTF-8 character files downloaded from the Unicode
+    Consortium website.
