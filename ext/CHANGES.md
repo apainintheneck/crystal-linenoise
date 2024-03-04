@@ -73,3 +73,23 @@ All credit goes to antirez as mentioned in the license includes in this director
   - `https://github.com/gdawg`
 - Note
   - This just removes an extra include.
+
+---
+
+## Branch: Another implementation for utf8 support.
+
+- Last Copied
+  - 2024-02-26
+- Last Commit
+  - Date
+    - 2024-04-19
+  - SHA
+    - 34fbffeef4489418527e1267e8e5c093b58aa5d4
+- Branch URL
+  - `https://github.com/antirez/linenoise/pull/187`
+- User URL
+  - `https://github.com/yhirose`
+- Note
+  - This is a massive PR which provides UTF8 support and at
+    the same time fixes the cursor position errors in multiline
+    mode. It currently supports Unicode 13.0.
