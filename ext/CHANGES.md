@@ -92,4 +92,4 @@ All credit goes to antirez as mentioned in the license includes in this director
 - Note
   - This is a massive PR which provides UTF8 support and at
     the same time fixes the cursor position errors in multiline
-    mode. It currently supports Unicode 13.0.
+    mode. It currently supports Unicode 14.0.

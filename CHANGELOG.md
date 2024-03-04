@@ -4,7 +4,7 @@
 
 ### Added
 
-- Add UTF8 support (Unicode v13.0)
+- Add UTF8 support (Unicode v14.0)
 
 ### Fixed
 

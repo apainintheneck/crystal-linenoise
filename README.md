@@ -87,6 +87,12 @@ The `crystal docs` command can be used to build the docs locally or you can visi
 
 - [apainintheneck](https://github.com/apainintheneck) - creator and maintainer
 
+## Acknowledgments
+
+I have pulled in a few PRs from upstream that haven't been merged into the main Linenoise project yet.
+
+Check out the [extension changes](ext/CHANGES.md) file for more information.
+
 ## License
 
 This library is released under the [MIT license](LICENSE).
