@@ -14,7 +14,7 @@
 <script type="text/javascript" src="../js/doc.js"></script>
 
   <meta name="repository-name" content="linenoise">
-  <title>Linenoise::CompletionCallback - linenoise main</title>
+  <title>Linenoise::Encoding - linenoise main</title>
   <script type="text/javascript">
     CrystalDocs.base_path = "../";
   </script>
@@ -67,12 +67,12 @@
       
     </li>
   
-  <li class=" current" data-id="linenoise/Linenoise/CompletionCallback" data-name="linenoise::completioncallback">
+  <li class=" " data-id="linenoise/Linenoise/CompletionCallback" data-name="linenoise::completioncallback">
       <a href="../Linenoise/CompletionCallback.html">CompletionCallback</a>
       
     </li>
   
-  <li class=" " data-id="linenoise/Linenoise/Encoding" data-name="linenoise::encoding">
+  <li class=" current" data-id="linenoise/Linenoise/Encoding" data-name="linenoise::encoding">
       <a href="../Linenoise/Encoding.html">Encoding</a>
       
     </li>
@@ -96,7 +96,7 @@
 <div class="main-content">
 <h1 class="type-name">
 
-  <span class="kind">alias</span> Linenoise::<wbr>CompletionCallback
+  <span class="kind">enum</span> Linenoise::<wbr>Encoding
 
 </h1>
 
@@ -104,33 +104,7 @@
 
 
 
-  <h2>
-    <a id="overview" class="anchor" href="#overview">
-  <svg class="octicon-link" aria-hidden="true">
-    <use href="#octicon-link"/>
-  </svg>
-</a>
-    Overview
-  </h2>
 
-  <p>Callback for setting completions based on user input.</p>
-<ul>
-<li>In:  <code>Pointer(UInt8)</code>                     The current line as a cstring.</li>
-<li>In:  <code>Pointer(LibLinenoise::Completions)</code> The completion state to be passed to <code>#add_completion</code>.</li>
-<li>Out: <code>Nil</code>                                No return value.</li>
-</ul>
-
-
-
-  <h2>
-    <a id="alias-definition" class="anchor" href="#alias-definition">
-  <svg class="octicon-link" aria-hidden="true">
-    <use href="#octicon-link"/>
-  </svg>
-</a>
-    Alias Definition
-  </h2>
-  <code>Pointer(UInt8), Pointer(LibLinenoise::Completions) -> Nil</code>
 
 
 
@@ -153,7 +127,7 @@
   </h2>
   
     
-      <a href="https://github.com/apainintheneck/crystal-linenoise/blob/0479e7bd4a04262695642ffcbfff311f92bea056/src/linenoise.cr#L30" target="_blank">
+      <a href="https://github.com/apainintheneck/crystal-linenoise/blob/0479e7bd4a04262695642ffcbfff311f92bea056/src/linenoise.cr#L135" target="_blank">
         linenoise.cr
       </a>
     
@@ -162,6 +136,29 @@
 
 
 
+  
+    <h2>
+      <a id="enum-members" class="anchor" href="#enum-members">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+      Enum Members
+    </h2>
+  
+  <dl>
+    
+      <dt class="entry-const" id="ASCII">
+        <strong>ASCII</strong> = <code><span class="n">0_u8</span></code>
+      </dt>
+      
+    
+      <dt class="entry-const" id="UTF8">
+        <strong>UTF8</strong> = <code><span class="n">1_u8</span></code>
+      </dt>
+      
+    
+  </dl>
 
 
 
@@ -169,10 +166,85 @@
 
 
 
+
+
+  <h2>
+    <a id="instance-method-summary" class="anchor" href="#instance-method-summary">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Summary
+  </h2>
+  <ul class="list-summary">
+    
+      <li class="entry-summary">
+        <a href="#ascii%3F-instance-method" class="signature"><strong>#ascii?</strong></a>
+        
+      </li>
+    
+      <li class="entry-summary">
+        <a href="#utf8%3F-instance-method" class="signature"><strong>#utf8?</strong></a>
+        
+      </li>
+    
+  </ul>
 
 
 
 <div class="methods-inherited">
+  
+    
+
+
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+    
+
+
+  
+    
+
+
+    
+
+
+    
+
+
+    
+
+
   
 </div>
 
@@ -182,6 +254,48 @@
 
 
 
+
+  <h2>
+    <a id="instance-method-detail" class="anchor" href="#instance-method-detail">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>
+    Instance Method Detail
+  </h2>
+  
+    <div class="entry-detail" id="ascii?-instance-method">
+      <div class="signature">
+        
+        def <strong>ascii?</strong>
+
+        <a class="method-permalink" href="#ascii%3F-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/apainintheneck/crystal-linenoise/blob/0479e7bd4a04262695642ffcbfff311f92bea056/src/linenoise.cr#L136" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
+    <div class="entry-detail" id="utf8?-instance-method">
+      <div class="signature">
+        
+        def <strong>utf8?</strong>
+
+        <a class="method-permalink" href="#utf8%3F-instance-method">#</a>
+      </div>
+      
+      <br/>
+      <div>
+        
+          [<a href="https://github.com/apainintheneck/crystal-linenoise/blob/0479e7bd4a04262695642ffcbfff311f92bea056/src/linenoise.cr#L137" target="_blank">View source</a>]
+        
+      </div>
+    </div>
+  
 
 
 </div>
