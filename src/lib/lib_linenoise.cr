@@ -1,6 +1,7 @@
 # Crystal bindings for the Linenoise library.
 # Note: This is a one-for-one translation of `ext/linenoise.h`.
 @[Link(ldflags: "#{__DIR__}/linenoise.o")]
+@[Link(ldflags: "#{__DIR__}/utf8.o")]
 lib LibLinenoise
   alias Char = LibC::Char
   alias Int = LibC::Int
@@ -26,7 +27,7 @@ lib LibLinenoise
     prompt : Char*
     plen : SizeT
     pos : SizeT
-    oldpos : SizeT
+    oldcolpos : SizeT
     len : SizeT
     cols : SizeT
     oldrows : SizeT
@@ -112,4 +113,16 @@ lib LibLinenoise
   # Ex. $ **********
   fun mask_mode_enable = linenoiseMaskModeEnable
   fun mask_mode_disable = linenoiseMaskModeDisable
+
+  #
+  # String encoding.
+  #
+
+  enum STRING_ENCODING
+    ASCII
+    UTF8
+  end
+
+  # Choose the string encoding that will be used by linenoise.
+  fun set_encoding = linenoiseSetEncoding(encoding : STRING_ENCODING)
 end

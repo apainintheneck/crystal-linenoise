@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.4.0] - 2024-03-03
+
+### Added
+
+- Add UTF8 support (Unicode v14.0)
+
+### Fixed
+
+- Fix bug in multiline cursor offset position with escape codes
+
 ## [0.3.0] - 2024-02-10
 
 ### Added

@@ -2,7 +2,7 @@ require "./lib/lib_linenoise"
 require "./linenoise/completion"
 
 module Linenoise
-  VERSION = "0.3.0"
+  VERSION = "0.4.0"
 
   #
   # Blocking API.
@@ -125,6 +125,25 @@ module Linenoise
       LibLinenoise.mask_mode_enable
     else
       LibLinenoise.mask_mode_disable
+    end
+  end
+
+  #
+  # String encoding.
+  #
+
+  enum Encoding : UInt8
+    ASCII
+    UTF8 # default
+  end
+
+  # Set the string encoding for the linenoise session. It defaults to UTF8.
+  def self.set_encoding(encoding : Encoding)
+    case encoding
+    in Encoding::ASCII
+      LibLinenoise.set_encoding(LibLinenoise::ASCII)
+    in Encoding::UTF8
+      LibLinenoise.set_encoding(LibLinenoise::UTF8)
     end
   end
 end

@@ -2,7 +2,9 @@
 
 Crystal bindings for the lightweight [Linenoise](https://github.com/antirez/linenoise) line editor library written in C. It is a minimal alternative to readline and libedit.
 
-Linenoise is written in C code that supports most distributions of the Linux, macOS and BSD operating systems. We compile the library on install so linking should not be a problem and the library is lightwieght (less than 900 lines of code) so the resulting binary should be small.
+Linenoise is written in C code that supports most distributions of the Linux, macOS and BSD operating systems. We compile the library on install so linking should not be a problem and the library is lightwieght (less than 1500 lines of code) so the resulting binary should be small.
+
+As of `v0.4.0`, UTF-8 support has been added. This means that the cursor won't have problems when writing in languages with non-Roman alphabets or using emoji.
 
 ## Installation
 
@@ -50,9 +52,6 @@ end
 For more information look at the files in the `example/` directory and the [documentation website](https://apainintheneck.github.io/crystal-linenoise/).
 
 ## Missing Features & Known Bugs
-UTF-8 support is not included but there have been multiple attempts at adding that in the past. It might be worth investigating more if any of those is mature enough to be worth including here as a patch. See https://github.com/apainintheneck/crystal-linenoise/issues/21 for more info.
-
-The multiline mode doesn't currently support escape codes when calculating cursor position so the presence of them will mean that the cursor will end up further to the right than expected. Single line mode support for escape codes was added in https://github.com/apainintheneck/crystal-linenoise/pull/22 in v0.3.0.
 
 There is no high-level wrapper around the multiplexing API but the Crystal bindings have been added for it. See `src/lib/lib_linenoise.cr` for more details.
 
@@ -87,6 +86,12 @@ The `crystal docs` command can be used to build the docs locally or you can visi
 ## Contributors
 
 - [apainintheneck](https://github.com/apainintheneck) - creator and maintainer
+
+## Acknowledgments
+
+I have pulled in a few PRs from upstream that haven't been merged into the main Linenoise project yet.
+
+Check out the [extension changes](ext/CHANGES.md) file for more information.
 
 ## License
 
