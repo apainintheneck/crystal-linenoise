@@ -4,6 +4,8 @@ on:
   push:
     branches: main
   pull_request:
+  schedule:
+  - cron: '0 10 * * Sat'
 permissions:
   contents: read
 
@@ -22,7 +24,7 @@ jobs:
           crystal: latest
 
       - name: Checkout branch
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Install dependencies
         run: shards install
