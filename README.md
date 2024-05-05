@@ -53,7 +53,7 @@ For more information look at the files in the `example/` directory and the [docu
 
 ## Example Projects
 
-These projects use this library as a dependency and can be used as a guide when setting things up. Let me know if you'd like your project to be added to the list
+These projects use this library as a dependency and can be used as a guide when setting things up. Let me know if you'd like your project to be added to the list.
 
 - [gitsh](https://github.com/apainintheneck/gitsh) : a simple shell for `git`
 
