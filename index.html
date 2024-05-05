@@ -100,7 +100,7 @@
 </a>linenoise</h1>
 <p>Crystal bindings for the lightweight <a href="https://github.com/antirez/linenoise">Linenoise</a> line editor library written in C. It is a minimal alternative to readline and libedit.</p>
 <p>Linenoise is written in C code that supports most distributions of the Linux, macOS and BSD operating systems. We compile the library on install so linking should not be a problem and the library is lightwieght (less than 1500 lines of code) so the resulting binary should be small.</p>
-<p>As of <code>v0.4.0</code>, UTF-8 support has been added. This means that the cursor won't have problems when writing in languages with non-Roman alphabets or using emoji.</p>
+<p>As of <code>v0.4.0</code>, UTF-8 support has been added. This means that the cursor won't have problems when writing in languages with non-Latin alphabets or emoji.</p>
 <h2><a id="installation" class="anchor" href="#installation">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
@@ -132,7 +132,7 @@
 <span class="t">Linenoise</span><span class="t">::</span><span class="t">Completion</span>.add(<span class="t">COMPLETIONS</span>)
 
 <span class="c"># Enable completion hints to the right of the cursor.</span>
-<span class="t">Linenoise</span><span class="t">::</span><span class="t">Completion</span>.enabe_hints!
+<span class="t">Linenoise</span><span class="t">::</span><span class="t">Completion</span>.enable_hints!
 
 <span class="t">HISTORY_FILE</span> <span class="o">=</span> <span class="s">&quot;...&quot;</span>
 
@@ -149,6 +149,15 @@ loop <span class="k">do</span>
   <span class="t">Linenoise</span>.save_history(<span class="t">HISTORY_FILE</span>)
 <span class="k">end</span></code></pre>
 <p>For more information look at the files in the <code>example/</code> directory and the <a href="https://apainintheneck.github.io/crystal-linenoise/">documentation website</a>.</p>
+<h2><a id="example-projects" class="anchor" href="#example-projects">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Example Projects</h2>
+<p>These projects use this library as a dependency and can be used as a guide when setting things up. Let me know if you'd like your project to be added to the list.</p>
+<ul>
+<li><a href="https://github.com/apainintheneck/gitsh">gitsh</a> : a simple shell for <code>git</code></li>
+</ul>
 <h2><a id="missing-features-known-bugs" class="anchor" href="#missing-features-known-bugs">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
