@@ -4,7 +4,7 @@ Crystal bindings for the lightweight [Linenoise](https://github.com/antirez/line
 
 Linenoise is written in C code that supports most distributions of the Linux, macOS and BSD operating systems. We compile the library on install so linking should not be a problem and the library is lightwieght (less than 1500 lines of code) so the resulting binary should be small.
 
-As of `v0.4.0`, UTF-8 support has been added. This means that the cursor won't have problems when writing in languages with non-Roman alphabets or using emoji.
+As of `v0.4.0`, UTF-8 support has been added. This means that the cursor won't have problems when writing in languages with non-Latin alphabets or emoji.
 
 ## Installation
 
@@ -31,7 +31,7 @@ COMPLETIONS = [
 Linenoise::Completion.add(COMPLETIONS)
 
 # Enable completion hints to the right of the cursor.
-Linenoise::Completion.enabe_hints!
+Linenoise::Completion.enable_hints!
 
 HISTORY_FILE = "..."
 
@@ -50,6 +50,12 @@ end
 ```
 
 For more information look at the files in the `example/` directory and the [documentation website](https://apainintheneck.github.io/crystal-linenoise/).
+
+## Example Projects
+
+These projects use this library as a dependency and can be used as a guide when setting things up. Let me know if you'd like your project to be added to the list.
+
+- [gitsh](https://github.com/apainintheneck/gitsh) : a simple shell for `git`
 
 ## Missing Features & Known Bugs
 
