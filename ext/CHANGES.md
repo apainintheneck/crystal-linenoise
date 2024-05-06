@@ -76,7 +76,7 @@ All credit goes to antirez as mentioned in the license includes in this director
 
 ---
 
-## Branch: Another implementation for utf8 support.
+## Branch: Another implementation for utf8 support
 
 - Last Copied
   - 2024-02-26
@@ -96,3 +96,22 @@ All credit goes to antirez as mentioned in the license includes in this director
   - The list of UTF-8 character mappings was created by parsing
     the UTF-8 character files downloaded from the Unicode
     Consortium website.
+
+---
+
+## Branch: advance enableRawMode() before getColumns()
+
+- Last Copied
+  - 2024-05-06
+- Last Commit
+  - Date
+    - 2024-02-22
+  - SHA
+    - 4111f1d6cd29e136b4e86a25d1dd859a1e00813b
+- Branch URL
+  - `https://github.com/antirez/linenoise/pull/221`
+- User URL
+  - `https://github.com/9Ajiang`
+- Note
+  - Stops control characters from being printed to the screen if
+    the call to `ioctl` in `getColumns` fails.

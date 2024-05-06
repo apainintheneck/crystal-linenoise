@@ -1023,6 +1023,11 @@ int linenoiseEditStart(struct linenoiseState *l, int stdin_fd, int stdout_fd, ch
     l->plen = strlen(prompt);
     l->oldcolpos = l->pos = 0;
     l->len = 0;
+
+    /* Enter raw mode. Needed before calling `getColumns` otherwise it will print control characters
+     * to find the screen width if the initial call to `ioctl` fails and those will be visible to the user. */
+    if (enableRawMode(l->ifd) == -1) return -1;
+
     l->cols = getColumns(stdin_fd, stdout_fd);
     l->oldrows = 0;
     l->history_index = 0;
@@ -1035,9 +1040,6 @@ int linenoiseEditStart(struct linenoiseState *l, int stdin_fd, int stdout_fd, ch
      * will actually just read a line from standard input in blocking
      * mode later, in linenoiseEditFeed(). */
     if (!isatty(l->ifd)) return 0;
-
-    /* Enter raw mode. */
-    if (enableRawMode(l->ifd) == -1) return -1;
 
     /* The latest history entry is always our current buffer, that
      * initially is just an empty string. */
